@@ -826,6 +826,7 @@ footer .credit {
         <div class="block">
           <h3>درباره این جزوه</h3>
           <p>این محتوای آموزشی مستقل برای یادگیری مفاهیم پایه تا پیشرفته Windows Server و آمادگی ذهنی برای مسیر MCSA طراحی شده است. متن اختصاصی دوره‌های تجاری را بازتولید نمی‌کند و تمرکز روی درک عملی و تمرین دارد.</p>
+          <p class="mt-2">با تشکر از زحمات <strong>راوین آکادمی</strong> و استاد محترم جناب <strong>شهلایی</strong>.</p>
         </div>
       </section>
 
@@ -850,23 +851,25 @@ const chapters = [
     content: `
       <div class="block">
         <h3>مقدمه</h3>
-        <p>Windows Server سیستم‌عامل سرور مایکروسافت است که برای ارائه سرویس‌های شبکه، مدیریت هویت، ذخیره‌سازی و مجازی‌سازی طراحی شده. برخلاف Windows Client که برای کاربر نهایی است، Server برای ارائه سرویس به تعداد زیادی کلاینت ساخته شده.</p>
-        <p>نسخه‌های رایج: Windows Server 2016، 2019، 2022 و 2025. دو حالت نصب اصلی وجود دارد:</p>
+        <p>Windows Server سیستم‌عامل سرور مایکروسافت است که برای ارائه سرویس‌های شبکه، مدیریت هویت، ذخیره‌سازی، مجازی‌سازی و انواع سرویس‌های سازمانی طراحی شده. برخلاف Windows Client که برای کاربر نهایی و کارهای روزمره ساخته شده، Server برای ارائه سرویس به تعداد زیادی کلاینت و مدیریت متمرکز زیرساخت بهینه‌سازی شده است.</p>
+        <p>نسخه‌های رایج عبارتند از Windows Server 2016، 2019، 2022 و 2025. دو حالت نصب اصلی وجود دارد:</p>
         <ul>
-          <li><strong>Desktop Experience (GUI)</strong> — رابط گرافیکی کامل</li>
-          <li><strong>Server Core</strong> — بدون GUI، سبک‌تر و امن‌تر</li>
+          <li><strong>Desktop Experience (GUI)</strong> — رابط گرافیکی کامل، مناسب یادگیری و محیط‌هایی که نیاز به مدیریت گرافیکی دارند.</li>
+          <li><strong>Server Core</strong> — بدون رابط گرافیکی کامل، سبک‌تر، مصرف منابع کمتر و سطح حمله کوچک‌تر. انتخاب توصیه‌شده برای محیط‌های تولیدی.</li>
         </ul>
+        <p>درک تفاوت این دو حالت و انتخاب درست بر اساس نیاز، یکی از اولین تصمیم‌های مهم در پیاده‌سازی سرور است.</p>
       </div>
       <div class="block">
         <h3>مفاهیم کلیدی</h3>
         <ul>
-          <li><strong>Server vs Client:</strong> سرور سرویس ارائه می‌کند (مثل DNS، File Share، Authentication). کلاینت از سرویس استفاده می‌کند.</li>
-          <li><strong>Role و Feature:</strong> Role مجموعه‌ای از سرویس‌های مرتبط است (مثل AD DS، DHCP). Feature قابلیت‌های کمکی است (مثل .NET Framework، Telnet Client).</li>
-          <li><strong>Domain:</strong> محیط مدیریت متمرکز کاربران، کامپیوترها و منابع. Domain Controller (DC) سروری است که Active Directory Domain Services روی آن نصب شده.</li>
-          <li><strong>Workgroup:</strong> محیط بدون Domain که هر کامپیوتر هویت خودش را مدیریت می‌کند (مناسب شبکه‌های خیلی کوچک).</li>
-          <li><strong>IP Address:</strong> آدرس منطقی دستگاه در شبکه. Gateway مسیر خروج از شبکه محلی است. DNS نام را به IP تبدیل می‌کند.</li>
+          <li><strong>Server vs Client:</strong> سرور سرویس ارائه می‌کند (مثل DNS، DHCP، File Share، Authentication، وب‌سرور). کلاینت از این سرویس‌ها استفاده می‌کند. یک سیستم می‌تواند همزمان هم سرویس بدهد و هم سرویس بگیرد، اما نقش اصلی آن‌ها متفاوت است.</li>
+          <li><strong>Role و Feature:</strong> Role مجموعه‌ای از سرویس‌های مرتبط است که یک قابلیت اصلی را فراهم می‌کند (مثل AD DS، DHCP، IIS، Hyper-V). Feature قابلیت‌های کمکی و ابزارهایی است که معمولاً به‌تنهایی Role محسوب نمی‌شوند (مثل .NET Framework، Telnet Client، Windows Server Backup).</li>
+          <li><strong>Domain:</strong> محیط مدیریت متمرکز کاربران، کامپیوترها، گروه‌ها و منابع. Domain Controller (DC) سروری است که Active Directory Domain Services روی آن نصب شده و مسئولیت احراز هویت و اعمال سیاست‌ها را بر عهده دارد.</li>
+          <li><strong>Workgroup:</strong> محیط بدون Domain که هر کامپیوتر هویت و حساب‌های خودش را به‌صورت محلی مدیریت می‌کند. مناسب شبکه‌های خیلی کوچک (معمولاً کمتر از ۱۰ دستگاه) است و مقیاس‌پذیری و مدیریت متمرکز ندارد.</li>
+          <li><strong>IP Address و تنظیمات پایه شبکه:</strong> آدرس منطقی دستگاه در شبکه. Gateway مسیر خروج از شبکه محلی است. DNS نام را به IP تبدیل می‌کند. سرورهای حیاتی (به‌ویژه Domain Controller) باید همیشه IP ثابت داشته باشند.</li>
+          <li><strong>Server Manager و PowerShell:</strong> دو ابزار اصلی مدیریت Windows Server. Server Manager رابط گرافیکی و PowerShell رابط قدرتمند خط فرمان و اتوماسیون است.</li>
         </ul>
-        <div class="note"><b>هدف فصل:</b> بتوانید تفاوت Server و Client را توضیح دهید، یک Server را با IP ثابت پیکربندی کنید و مفهوم Domain را درک کنید.</div>
+        <div class="note"><b>هدف فصل:</b> بتوانید تفاوت Server و Client را به‌وضوح توضیح دهید، یک Server را با IP ثابت پیکربندی کنید، مفهوم Domain و Workgroup را درک کنید و با ابزارهای پایه مدیریت آشنا شوید.</div>
       </div>
       <div class="block">
         <h3>دستورات مهم</h3>
@@ -874,18 +877,22 @@ const chapters = [
         <div class="cmd">ipconfig /all</div>
         <div class="cmd">Get-NetIPAddress</div>
         <div class="cmd">Get-NetAdapter</div>
+        <div class="cmd">Get-NetIPConfiguration</div>
         <div class="cmd">Get-Service | Where-Object Status -eq 'Running'</div>
         <div class="cmd">Get-WindowsFeature | Where-Object InstallState -eq 'Installed'</div>
+        <div class="cmd">Get-ComputerInfo | Select WindowsProductName, OsVersion</div>
         <div class="cmd">sconfig</div>
-        <p class="text-muted mt-2">دستور <code>sconfig</code> در Server Core منوی متنی مدیریتی سریع ارائه می‌دهد.</p>
+        <p class="text-muted mt-2">دستور <code>sconfig</code> در Server Core یک منوی متنی ساده برای تنظیمات پایه (نام کامپیوتر، IP، به‌روزرسانی و ...) ارائه می‌دهد و برای شروع کار بسیار مفید است.</p>
       </div>
       <div class="block">
         <h3>نکات عملی Lab</h3>
         <ul>
-          <li>همیشه به سرورها IP ثابت بدهید (هرگز DHCP برای DC یا سرورهای حیاتی).</li>
-          <li>نام کامپیوتر را قبل از Join به Domain تنظیم کنید.</li>
-          <li>از Server Manager یا PowerShell برای نصب Role استفاده کنید.</li>
-          <li>Firewall را بی‌دلیل خاموش نکنید؛ Ruleهای لازم را اضافه کنید.</li>
+          <li>همیشه به سرورهای حیاتی (به‌خصوص Domain Controller) IP ثابت بدهید. هرگز آن‌ها را روی DHCP نگذارید.</li>
+          <li>نام کامپیوتر (Hostname) را قبل از Join کردن به Domain تنظیم و در صورت نیاز سیستم را Restart کنید.</li>
+          <li>از Server Manager یا PowerShell برای نصب Role و Feature استفاده کنید. نصب از طریق PowerShell قابل تکرار و مستندسازی است.</li>
+          <li>Firewall را بی‌دلیل خاموش نکنید. به‌جای آن Ruleهای لازم برای سرویس‌های مورد نیاز را اضافه کنید.</li>
+          <li>قبل از هر تغییر مهم، از وضعیت فعلی Snapshot یا Backup بگیرید تا امکان بازگشت وجود داشته باشد.</li>
+          <li>در محیط Lab، از نام‌گذاری منظم استفاده کنید (مثل DC01، SRV01، PC01) تا مدیریت و عیب‌یابی ساده‌تر شود.</li>
         </ul>
       </div>
     `,
@@ -904,19 +911,22 @@ const chapters = [
     content: `
       <div class="block">
         <h3>مقدمه</h3>
-        <p>شبکه زیربنای همه سرویس‌های Windows Server است. بدون درک درست TCP/IP، عیب‌یابی DNS، DHCP، AD و حتی File Share تقریباً غیرممکن می‌شود.</p>
+        <p>شبکه زیربنای همه سرویس‌های Windows Server است. بدون درک درست TCP/IP، عیب‌یابی DNS، DHCP، Active Directory و حتی File Share تقریباً غیرممکن می‌شود. در این فصل مفاهیم پایه آدرس‌دهی، پروتکل‌ها و ابزارهای عیب‌یابی را به‌صورت عملی یاد می‌گیرید.</p>
       </div>
       <div class="block">
         <h3>مفاهیم کلیدی</h3>
         <ul>
-          <li><strong>IPv4:</strong> آدرس ۳۲ بیتی به صورت چهار Octet (مثال: 192.168.10.20). Subnet Mask مشخص می‌کند کدام بخش Network و کدام Host است.</li>
-          <li><strong>/24:</strong> معادل 255.255.255.0 — یعنی ۲۴ بیت شبکه و ۸ بیت میزبان (تا ۲۵۴ Host مفید).</li>
-          <li><strong>TCP:</strong> اتصال‌گرا، قابل اطمینان، مناسب فایل و وب. <strong>UDP:</strong> بدون اتصال پایدار، سریع‌تر، مناسب DNS و استریم.</li>
-          <li><strong>Port:</strong> شماره ۰ تا ۶۵۵۳۵ که سرویس‌ها را از هم جدا می‌کند (مثلاً ۸۰ برای HTTP، ۴۴۳ HTTPS، ۵۳ DNS، ۳۳۸۹ RDP).</li>
-          <li><strong>Gateway:</strong> روتری که ترافیک خارج از شبکه محلی را هدایت می‌کند.</li>
-          <li><strong>ARP:</strong> نگاشت IP به MAC Address در شبکه محلی.</li>
+          <li><strong>IPv4:</strong> آدرس ۳۲ بیتی به صورت چهار Octet (مثال: 192.168.10.20). هر Octet عددی بین ۰ تا ۲۵۵ است. Subnet Mask مشخص می‌کند کدام بخش Network و کدام بخش Host است.</li>
+          <li><strong>CIDR و /24:</strong> علامت /24 معادل Mask برابر 255.255.255.0 است؛ یعنی ۲۴ بیت شبکه و ۸ بیت میزبان (حداکثر ۲۵۴ آدرس مفید برای Host).</li>
+          <li><strong>Private IP Ranges:</strong> بازه‌های خصوصی شامل 10.0.0.0/8، 172.16.0.0/12 و 192.168.0.0/16 هستند که در اینترنت عمومی Route نمی‌شوند.</li>
+          <li><strong>TCP:</strong> پروتکل اتصال‌گرا و قابل اطمینان. قبل از ارسال داده، اتصال (Three-way Handshake) برقرار می‌کند و تحویل را تضمین می‌کند. مناسب وب، فایل و دیتابیس.</li>
+          <li><strong>UDP:</strong> بدون اتصال پایدار و سریع‌تر. تحویل را تضمین نمی‌کند. مناسب DNS، DHCP، VoIP و استریم ویدیو.</li>
+          <li><strong>Port:</strong> شماره‌ای بین ۰ تا ۶۵۵۳۵ که سرویس‌ها را از هم جدا می‌کند. پورت‌های معروف: ۵۳ (DNS)، ۸۰ (HTTP)، ۴۴۳ (HTTPS)، ۳۳۸۹ (RDP)، ۴۴۵ (SMB).</li>
+          <li><strong>Gateway:</strong> روتر یا دستگاهی که ترافیک خارج از شبکه محلی (Subnet) را هدایت می‌کند. معمولاً اولین آدرس شبکه است (مثل 192.168.10.1).</li>
+          <li><strong>ARP:</strong> پروتکلی که IP را به MAC Address در لایه دوم نگاشت می‌کند. جدول ARP با دستور <code>arp -a</code> قابل مشاهده است.</li>
+          <li><strong>Routing Table:</strong> جدولی که مسیر رسیدن به شبکه‌های مختلف را مشخص می‌کند. با <code>route print</code> یا <code>Get-NetRoute</code> دیده می‌شود.</li>
         </ul>
-        <div class="note"><b>هدف فصل:</b> بتوانید IP و Subnet را تحلیل کنید، تفاوت TCP و UDP را بگویید و با ابزارهای عیب‌یابی شبکه کار کنید.</div>
+        <div class="note"><b>هدف فصل:</b> بتوانید IP و Subnet را تحلیل کنید، تفاوت TCP و UDP را توضیح دهید، پورت‌های مهم را بشناسید و با ابزارهای عیب‌یابی شبکه کار کنید.</div>
       </div>
       <div class="block">
         <h3>دستورات مهم</h3>
@@ -926,18 +936,23 @@ const chapters = [
         <div class="cmd">arp -a</div>
         <div class="cmd">route print</div>
         <div class="cmd">Test-NetConnection 192.168.10.10 -Port 445</div>
+        <div class="cmd">Test-NetConnection 192.168.10.10 -Port 53</div>
         <div class="cmd">Get-NetTCPConnection -State Established</div>
+        <div class="cmd">Get-NetRoute</div>
         <div class="cmd">Resolve-DnsName example.com</div>
+        <div class="cmd">Get-NetIPConfiguration</div>
       </div>
       <div class="block">
-        <h3>عیب‌یابی مرحله‌ای</h3>
+        <h3>عیب‌یابی مرحله‌ای شبکه</h3>
         <ol>
-          <li>بررسی فیزیکی / Link (کابل، وضعیت Adapter)</li>
-          <li>بررسی IP و Gateway (<code>ipconfig</code>)</li>
-          <li>Ping به Gateway و سپس به مقصد</li>
-          <li>بررسی DNS (<code>nslookup</code> یا <code>Resolve-DnsName</code>)</li>
-          <li>بررسی Port با <code>Test-NetConnection</code></li>
+          <li><strong>لایه فیزیکی و Link:</strong> کابل، وضعیت چراغ‌ها و وضعیت Adapter را بررسی کنید (<code>Get-NetAdapter</code>).</li>
+          <li><strong>آدرس‌دهی:</strong> با <code>ipconfig /all</code> صحت IP، Mask و Gateway را چک کنید. از APIPA (169.254.x.x) دوری کنید.</li>
+          <li><strong>Connectivity:</strong> ابتدا به Gateway و سپس به مقصد Ping بزنید.</li>
+          <li><strong>مسیریابی:</strong> اگر Ping به Gateway موفق ولی به مقصد ناموفق است، Routing یا Firewall را بررسی کنید.</li>
+          <li><strong>DNS:</strong> با <code>nslookup</code> یا <code>Resolve-DnsName</code> صحت Resolve را تست کنید.</li>
+          <li><strong>پورت و سرویس:</strong> با <code>Test-NetConnection -Port</code> باز بودن پورت مقصد را بررسی کنید.</li>
         </ol>
+        <div class="warning"><b>نکته:</b> خیلی از مشکلات «شبکه» در واقع مشکل DNS یا Firewall هستند. همیشه لایه‌ها را از پایین به بالا طی کنید.</div>
       </div>
     `,
     questions: [
@@ -955,36 +970,43 @@ const chapters = [
     content: `
       <div class="block">
         <h3>مقدمه</h3>
-        <p>Active Directory Domain Services (AD DS) قلب مدیریت هویت در محیط‌های مایکروسافتی است. با AD می‌توانید کاربران، کامپیوترها، گروه‌ها و سیاست‌ها را به‌صورت متمرکز مدیریت کنید.</p>
+        <p>Active Directory Domain Services (AD DS) قلب مدیریت هویت در محیط‌های مایکروسافتی است. با AD می‌توانید کاربران، کامپیوترها، گروه‌ها، سیاست‌ها و منابع را به‌صورت متمرکز مدیریت کنید. تقریباً همه سرویس‌های سازمانی مایکروسافت به AD وابسته هستند.</p>
+        <p>وقتی کلاینت به Domain می‌پیوندد، هویت آن توسط Domain Controller بررسی می‌شود و سیاست‌های متمرکز (GPO) روی آن اعمال می‌گردد.</p>
       </div>
       <div class="block">
         <h3>مفاهیم کلیدی</h3>
         <ul>
-          <li><strong>Forest و Domain:</strong> Forest بالاترین سطح امنیتی است. هر Forest حداقل یک Domain دارد.</li>
-          <li><strong>Domain Controller:</strong> سروری که کپی پایگاه داده AD را نگه می‌دارد و Authentication انجام می‌دهد.</li>
-          <li><strong>OU (Organizational Unit):</strong> ظرف منطقی برای سازمان‌دهی اشیاء و اعمال Group Policy.</li>
-          <li><strong>گروه:</strong> Security Group برای Permission و Distribution Group برای ایمیل. بهترین روش: کاربران را در گروه بگذارید و Permission را به گروه بدهید (AGDLP).</li>
-          <li><strong>FSMO Roles:</strong> نقش‌های خاص که روی DCهای مشخصی قرار دارند (Schema Master، Domain Naming Master، PDC Emulator، RID Master، Infrastructure Master).</li>
-          <li><strong>Global Catalog:</strong> فهرستی جزئی از همه اشیاء Forest برای جستجوی سریع.</li>
+          <li><strong>Forest و Domain:</strong> Forest بالاترین مرز امنیتی و اعتماد است. هر Forest حداقل یک Domain دارد. Domain واحد مدیریتی اصلی برای کاربران و کامپیوترهاست.</li>
+          <li><strong>Domain Controller (DC):</strong> سروری که کپی پایگاه داده Active Directory را نگه می‌دارد و عملیات Authentication و Authorization را انجام می‌دهد. توصیه می‌شود حداقل دو DC در هر Domain داشته باشید.</li>
+          <li><strong>OU (Organizational Unit):</strong> ظرف منطقی برای سازمان‌دهی اشیاء (کاربر، کامپیوتر، گروه) و مهم‌تر از آن، محل لینک کردن Group Policy.</li>
+          <li><strong>گروه‌ها:</strong> Security Group برای کنترل دسترسی (Permission) و Distribution Group برای توزیع ایمیل. مدل توصیه‌شده AGDLP است: کاربران را در Global Group بگذارید، Global Group را عضو Domain Local Group کنید و Permission را به Domain Local بدهید.</li>
+          <li><strong>FSMO Roles:</strong> پنج نقش خاص که فقط روی یک DC در هر حوزه اجرا می‌شوند: Schema Master، Domain Naming Master، PDC Emulator، RID Master و Infrastructure Master.</li>
+          <li><strong>Global Catalog (GC):</strong> فهرستی جزئی از تمام اشیاء Forest که جستجوی سریع در کل Forest را ممکن می‌کند. حداقل یک GC در هر Site توصیه می‌شود.</li>
+          <li><strong>Replication:</strong> تغییرات AD بین DCها replicate می‌شوند. در داخل Site معمولاً سریع و بین Siteها بر اساس Schedule است.</li>
         </ul>
-        <div class="note"><b>هدف فصل:</b> بتوانید Domain بسازید، کاربر و OU ایجاد کنید و ساختار منطقی AD را طراحی کنید.</div>
+        <div class="note"><b>هدف فصل:</b> بتوانید Domain بسازید، ساختار OU طراحی کنید، کاربر و گروه بسازید و اصول مدیریت هویت را درک کنید.</div>
       </div>
       <div class="block">
         <h3>دستورات مهم</h3>
         <div class="cmd">Install-WindowsFeature AD-Domain-Services -IncludeManagementTools</div>
         <div class="cmd">Install-ADDSForest -DomainName "lab.local" -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd123" -AsPlainText -Force)</div>
         <div class="cmd">Get-ADDomain</div>
-        <div class="cmd">Get-ADUser -Filter * | Select Name, SamAccountName</div>
+        <div class="cmd">Get-ADDomainController</div>
+        <div class="cmd">Get-ADUser -Filter * | Select Name, SamAccountName, Enabled</div>
         <div class="cmd">New-ADUser -Name "Ali Rezaei" -SamAccountName "ali" -UserPrincipalName "ali@lab.local" -AccountPassword (ConvertTo-SecureString "P@ss1234" -AsPlainText -Force) -Enabled $true</div>
         <div class="cmd">New-ADOrganizationalUnit -Name "IT" -Path "DC=lab,DC=local"</div>
-        <div class="cmd">Add-ADGroupMember -Identity "Domain Admins" -Members "ali"</div>
+        <div class="cmd">New-ADGroup -Name "IT_Users" -GroupScope Global -GroupCategory Security</div>
+        <div class="cmd">Add-ADGroupMember -Identity "IT_Users" -Members "ali"</div>
+        <div class="cmd">Get-ADForest</div>
       </div>
       <div class="block">
-        <h3>نکات طراحی</h3>
+        <h3>نکات طراحی و بهترین روش‌ها</h3>
         <ul>
-          <li>ساختار OU را بر اساس سازمان یا مکان طراحی کنید، نه صرفاً بر اساس دپارتمان‌های موقتی.</li>
-          <li>از حساب‌های Administrator پیش‌فرض برای کارهای روزمره استفاده نکنید.</li>
-          <li>حداقل دو Domain Controller در هر Domain داشته باشید.</li>
+          <li>ساختار OU را بر اساس سازمان، مکان جغرافیایی یا نوع مدیریت طراحی کنید، نه بر اساس دپارتمان‌های موقتی.</li>
+          <li>از حساب‌های Administrator پیش‌فرض برای کارهای روزمره استفاده نکنید؛ حساب‌های جدا با دسترسی محدود بسازید.</li>
+          <li>حداقل دو Domain Controller در هر Domain داشته باشید تا در صورت خرابی یکی، سرویس قطع نشود.</li>
+          <li>هرگز Permission را مستقیماً به کاربر ندهید؛ همیشه از گروه استفاده کنید.</li>
+          <li>قبل از تغییرات بزرگ در Schema یا ساختار Forest، Backup کامل بگیرید.</li>
         </ul>
       </div>
     `,
@@ -1003,19 +1025,28 @@ const chapters = [
     content: `
       <div class="block">
         <h3>مقدمه</h3>
-        <p>DNS سیستم نام‌گذاری اینترنت و شبکه‌های داخلی است. در محیط Active Directory، DNS حیاتی است؛ بدون DNS درست، Join به Domain، احراز هویت و بسیاری سرویس‌ها شکست می‌خورند.</p>
+        <p>DNS سیستم نام‌گذاری اینترنت و شبکه‌های داخلی است. در محیط Active Directory، DNS حیاتی‌ترین سرویس زیرساختی محسوب می‌شود؛ بدون DNS درست، Join به Domain، احراز هویت Kerberos، پیدا کردن DC و بسیاری سرویس‌های دیگر شکست می‌خورند. بیشتر مشکلات به‌ظاهر مربوط به AD در واقع ریشه در DNS دارند.</p>
       </div>
       <div class="block">
         <h3>مفاهیم کلیدی</h3>
         <ul>
-          <li><strong>Zone:</strong> بخشی از فضای نام DNS که یک سرور مسئول آن است. انواع: Primary، Secondary، Stub و AD-Integrated.</li>
-          <li><strong>Recordهای مهم:</strong> A (IPv4)، AAAA (IPv6)، CNAME (Alias)، MX (ایمیل)، PTR (Reverse)، SRV (سرویس‌های AD).</li>
-          <li><strong>Forward Lookup:</strong> نام → IP. <strong>Reverse Lookup:</strong> IP → نام.</li>
-          <li><strong>Forwarder:</strong> سروری که کوئری‌های خارج از Zone خود را به آن می‌فرستد (مثلاً 8.8.8.8).</li>
-          <li><strong>AD-Integrated Zone:</strong> Zone که در پایگاه AD ذخیره می‌شود و بین DCها replicate می‌شود — بهترین انتخاب برای Domain.</li>
-          <li><strong>SRV Records:</strong> برای پیدا کردن سرویس‌هایی مثل LDAP و Kerberos توسط کلاینت‌ها ضروری هستند.</li>
+          <li><strong>Zone:</strong> بخشی از فضای نام DNS که مسئولیت آن بر عهده یک یا چند سرور است. انواع اصلی: Primary، Secondary، Stub و AD-Integrated.</li>
+          <li><strong>Recordهای مهم:</strong>
+            <ul>
+              <li><strong>A</strong> — نام به IPv4</li>
+              <li><strong>AAAA</strong> — نام به IPv6</li>
+              <li><strong>CNAME</strong> — نام مستعار (Alias)</li>
+              <li><strong>MX</strong> — سرور ایمیل</li>
+              <li><strong>PTR</strong> — Reverse (IP به نام)</li>
+              <li><strong>SRV</strong> — محل سرویس‌هایی مثل LDAP و Kerberos (بسیار مهم برای AD)</li>
+            </ul>
+          </li>
+          <li><strong>Forward Lookup Zone:</strong> تبدیل نام به IP. <strong>Reverse Lookup Zone:</strong> تبدیل IP به نام.</li>
+          <li><strong>Forwarder:</strong> سروری که کوئری‌های خارج از Zoneهای محلی به آن فرستاده می‌شود (مثلاً 8.8.8.8 یا DNS Provider).</li>
+          <li><strong>AD-Integrated Zone:</strong> Zoneای که داده‌های آن داخل پایگاه Active Directory ذخیره و بین DCها replicate می‌شود. بهترین و امن‌ترین انتخاب برای محیط Domain است.</li>
+          <li><strong>Caching و TTL:</strong> نتایج DNS برای مدتی در کش کلاینت و سرور نگه داشته می‌شوند. با تغییر Record ممکن است نیاز به پاک کردن کش باشد.</li>
         </ul>
-        <div class="warning"><b>هشدار:</b> اشتباه در DNS یکی از شایع‌ترین دلایل مشکلات AD است. همیشه DNS را اول بررسی کنید.</div>
+        <div class="warning"><b>هشدار مهم:</b> اشتباه در تنظیمات DNS یکی از شایع‌ترین دلایل مشکلات Join به Domain، Authentication و GPO است. همیشه اول DNS را بررسی کنید.</div>
       </div>
       <div class="block">
         <h3>دستورات مهم</h3>
@@ -1023,18 +1054,21 @@ const chapters = [
         <div class="cmd">Add-DnsServerPrimaryZone -Name "lab.local" -ReplicationScope "Domain"</div>
         <div class="cmd">Add-DnsServerResourceRecordA -ZoneName "lab.local" -Name "srv01" -IPv4Address "192.168.10.20"</div>
         <div class="cmd">Get-DnsServerZone</div>
+        <div class="cmd">Get-DnsServerResourceRecord -ZoneName "lab.local"</div>
         <div class="cmd">Resolve-DnsName dc01.lab.local</div>
         <div class="cmd">nslookup dc01.lab.local</div>
-        <div class="cmd">Get-DnsServerResourceRecord -ZoneName "lab.local"</div>
         <div class="cmd">Clear-DnsClientCache</div>
+        <div class="cmd">ipconfig /flushdns</div>
+        <div class="cmd">Get-DnsServerForwarder</div>
       </div>
       <div class="block">
         <h3>عیب‌یابی DNS</h3>
         <ul>
-          <li>کلاینت باید DNS سرور داخلی را داشته باشد (نه فقط 8.8.8.8).</li>
-          <li>با <code>nslookup</code> یا <code>Resolve-DnsName</code> تست کنید.</li>
+          <li>کلاینت‌های Domain باید DNS سرور داخلی (معمولاً DC) را داشته باشند، نه فقط DNS عمومی مثل 8.8.8.8.</li>
+          <li>با <code>nslookup</code> یا <code>Resolve-DnsName</code> صحت Resolve را تست کنید.</li>
           <li>کش کلاینت را پاک کنید: <code>ipconfig /flushdns</code> یا <code>Clear-DnsClientCache</code>.</li>
-          <li>SRV Recordهای Domain را بررسی کنید.</li>
+          <li>وجود SRV Recordهای مربوط به Domain را بررسی کنید (مثل _ldap._tcp.dc._msdcs.lab.local).</li>
+          <li>اگر از چند DC استفاده می‌کنید، مطمئن شوید Replication Zoneها درست انجام می‌شود.</li>
         </ul>
       </div>
     `,
@@ -1053,19 +1087,20 @@ const chapters = [
     content: `
       <div class="block">
         <h3>مقدمه</h3>
-        <p>DHCP به‌صورت خودکار تنظیمات شبکه (IP، Mask، Gateway، DNS و ...) را به کلاینت‌ها می‌دهد. در شبکه‌های متوسط و بزرگ، مدیریت دستی IP غیرعملی است.</p>
+        <p>DHCP به‌صورت خودکار تنظیمات شبکه (IP، Subnet Mask، Gateway، DNS و گزینه‌های دیگر) را به کلاینت‌ها اختصاص می‌دهد. در شبکه‌های متوسط و بزرگ، مدیریت دستی IP غیرعملی و مستعد خطاست. DHCP علاوه بر راحتی، امکان کنترل متمرکز و Reservation برای دستگاه‌های خاص را فراهم می‌کند.</p>
       </div>
       <div class="block">
         <h3>مفاهیم کلیدی</h3>
         <ul>
-          <li><strong>Scope:</strong> محدوده آدرس‌های IP که DHCP می‌تواند اختصاص دهد (مثلاً 192.168.10.100 تا 192.168.10.200).</li>
-          <li><strong>Lease:</strong> مدت زمانی که کلاینت می‌تواند از IP استفاده کند. قبل از پایان، Renewal انجام می‌دهد.</li>
-          <li><strong>Reservation:</strong> اختصاص همیشگی یک IP خاص به یک MAC Address (مناسب پرینتر و دستگاه‌های خاص).</li>
-          <li><strong>Exclusion:</strong> بازه‌ای از IPها که DHCP نباید بدهد (برای سرورها).</li>
-          <li><strong>Options:</strong> تنظیمات اضافی مثل Router (003)، DNS Server (006)، DNS Domain Name (015).</li>
-          <li><strong>Authorization:</strong> در محیط Domain، DHCP Server باید در AD Authorize شود وگرنه IP توزیع نمی‌کند.</li>
+          <li><strong>Scope:</strong> محدوده آدرس‌های IP که سرور DHCP مجاز به اختصاص آن‌هاست (مثلاً 192.168.10.100 تا 192.168.10.200).</li>
+          <li><strong>Lease:</strong> مدت زمانی که کلاینت می‌تواند از IP اختصاص‌یافته استفاده کند. کلاینت قبل از پایان Lease درخواست تمدید (Renewal) می‌فرستد.</li>
+          <li><strong>Reservation:</strong> اختصاص دائمی یک IP مشخص به یک MAC Address. مناسب پرینترها، دوربین‌ها و دستگاه‌هایی که باید آدرس ثابت داشته باشند.</li>
+          <li><strong>Exclusion:</strong> بازه‌ای از IPها که DHCP نباید آن‌ها را بدهد (معمولاً برای سرورها و دستگاه‌های دارای IP ثابت).</li>
+          <li><strong>Options:</strong> تنظیمات اضافی که همراه IP به کلاینت داده می‌شود. مهم‌ترین‌ها: Router (003)، DNS Server (006)، DNS Domain Name (015).</li>
+          <li><strong>Authorization:</strong> در محیط Active Directory، سرور DHCP باید در AD Authorize شود؛ در غیر این صورت IP توزیع نمی‌کند. این مکانیزم از Rogue DHCP جلوگیری می‌کند.</li>
+          <li><strong>DHCP Failover:</strong> در محیط‌های تولیدی برای redundancy بین دو سرور DHCP پیکربندی می‌شود.</li>
         </ul>
-        <div class="note"><b>هدف فصل:</b> بتوانید DHCP را نصب، Authorize و Scope بسازید و Reservation تعریف کنید.</div>
+        <div class="note"><b>هدف فصل:</b> بتوانید DHCP را نصب و Authorize کنید، Scope بسازید، Option تنظیم کنید و Reservation تعریف کنید.</div>
       </div>
       <div class="block">
         <h3>دستورات مهم</h3>
@@ -1100,19 +1135,19 @@ const chapters = [
     content: `
       <div class="block">
         <h3>مقدمه</h3>
-        <p>Group Policy قدرتمندترین ابزار مدیریت متمرکز تنظیمات کاربران و کامپیوترها در محیط Domain است. با GPO می‌توانید سیاست پسورد، نقشه درایو، نصب نرم‌افزار، محدودیت‌های امنیتی و صدها تنظیم دیگر را اعمال کنید.</p>
+        <p>Group Policy قدرتمندترین ابزار مدیریت متمرکز تنظیمات کاربران و کامپیوترها در محیط Domain است. با GPO می‌توانید سیاست پسورد، نقشه درایو شبکه، نصب نرم‌افزار، محدودیت‌های امنیتی، تنظیمات Windows Update و صدها مورد دیگر را به‌صورت یکپارچه اعمال کنید. درک درست Inheritance و Filtering برای مدیریت صحیح ضروری است.</p>
       </div>
       <div class="block">
         <h3>مفاهیم کلیدی</h3>
         <ul>
-          <li><strong>GPO (Group Policy Object):</strong> مجموعه‌ای از تنظیمات که می‌تواند به Site، Domain یا OU لینک شود.</li>
-          <li><strong>Inheritance:</strong> تنظیمات از بالا به پایین به ارث می‌رسند مگر اینکه Block Inheritance یا Enforced استفاده شود.</li>
-          <li><strong>Computer Configuration vs User Configuration:</strong> یکی هنگام روشن شدن کامپیوتر و دیگری هنگام ورود کاربر اعمال می‌شود.</li>
-          <li><strong>Security Filtering:</strong> محدود کردن اعمال GPO به گروه‌ها یا کاربران خاص.</li>
-          <li><strong>Loopback Processing:</strong> در سناریوهای خاص (مثل کیوسک) باعث می‌شود User Configuration از GPO کامپیوتر اعمال شود.</li>
-          <li><strong>gpupdate /force:</strong> اعمال فوری سیاست‌ها.</li>
+          <li><strong>GPO (Group Policy Object):</strong> مجموعه‌ای از تنظیمات که می‌تواند به Site، Domain یا OU لینک شود. هر GPO دو بخش اصلی دارد: Computer Configuration و User Configuration.</li>
+          <li><strong>Inheritance:</strong> تنظیمات از سطوح بالاتر (Site → Domain → OU) به پایین به ارث می‌رسند. با Block Inheritance می‌توان ارث‌بری را متوقف کرد و با Enforced می‌توان اجبار کرد که تنظیمات بالادستی نادیده گرفته نشوند.</li>
+          <li><strong>Computer vs User Configuration:</strong> Computer Configuration هنگام روشن شدن سیستم و استارت سرویس‌ها اعمال می‌شود؛ User Configuration هنگام ورود کاربر.</li>
+          <li><strong>Security Filtering:</strong> به‌طور پیش‌فرض GPO روی Authenticated Users اعمال می‌شود. می‌توانید آن را به گروه‌ها یا کاربران خاص محدود کنید.</li>
+          <li><strong>Loopback Processing:</strong> در سناریوهایی مثل کیوسک یا Remote Desktop باعث می‌شود تنظیمات User از GPO مربوط به کامپیوتر اعمال شود نه از GPO کاربر.</li>
+          <li><strong>ابزارهای کلیدی:</strong> Group Policy Management Console (GPMC)، <code>gpupdate /force</code> برای اعمال فوری و <code>gpresult</code> برای مشاهده نتیجه نهایی.</li>
         </ul>
-        <div class="note"><b>هدف فصل:</b> بتوانید GPO بسازید، لینک کنید و نتیجه را روی کلاینت تست کنید.</div>
+        <div class="note"><b>هدف فصل:</b> بتوانید GPO بسازید، به OU لینک کنید، Filtering تنظیم کنید و نتیجه را روی کلاینت تست و عیب‌یابی کنید.</div>
       </div>
       <div class="block">
         <h3>دستورات و ابزارها</h3>
@@ -1338,19 +1373,20 @@ const chapters = [
     content: `
       <div class="block">
         <h3>مقدمه</h3>
-        <p>امنیت یک محصول نیست؛ یک فرآیند است. در Windows Server باید از لایه‌های مختلف (هویت، شبکه، سیستم‌عامل، داده) محافظت کنید و برای بازیابی آماده باشید.</p>
+        <p>امنیت یک محصول نیست؛ یک فرآیند مستمر است. در Windows Server باید از لایه‌های مختلف (هویت، شبکه، سیستم‌عامل و داده) محافظت کنید و همزمان برای بازیابی از حادثه آماده باشید. Hardening یعنی کاهش سطح حمله با حذف سرویس‌ها و دسترسی‌های غیرضروری.</p>
       </div>
       <div class="block">
         <h3>مفاهیم کلیدی</h3>
         <ul>
-          <li><strong>Least Privilege:</strong> هر کاربر و سرویس فقط حداقل دسترسی لازم را داشته باشد.</li>
-          <li><strong>Windows Firewall:</strong> با Profileهای Domain، Private و Public. Ruleها را به‌جای خاموش کردن کلی تنظیم کنید.</li>
-          <li><strong>Windows Update:</strong> وصله‌های امنیتی را به‌موقع نصب کنید. در محیط Domain می‌توانید از WSUS یا GPO استفاده کنید.</li>
-          <li><strong>Auditing:</strong> ثبت رویدادهای مهم (ورود، تغییرات Policy، دسترسی به فایل‌های حساس).</li>
-          <li><strong>Backup:</strong> قانون ۳-۲-۱: حداقل ۳ کپی، روی ۲ رسانه مختلف، ۱ کپی خارج از سایت. Backup باید قابل بازیابی تست شده باشد.</li>
-          <li><strong>Windows Server Backup / wbadmin:</strong> ابزار بومی برای Backup.</li>
+          <li><strong>Least Privilege:</strong> هر کاربر، سرویس و Application Pool فقط حداقل دسترسی لازم را داشته باشد. این اصل مهم‌ترین پایه امنیت است.</li>
+          <li><strong>Windows Firewall:</strong> سه Profile دارد (Domain، Private، Public). به‌جای خاموش کردن کامل Firewall، Ruleهای دقیق برای پورت‌ها و برنامه‌های مورد نیاز تعریف کنید.</li>
+          <li><strong>Windows Update:</strong> وصله‌های امنیتی را به‌موقع نصب کنید. در محیط Domain می‌توانید از WSUS یا سیاست‌های GPO برای کنترل به‌روزرسانی‌ها استفاده کنید.</li>
+          <li><strong>Auditing:</strong> ثبت رویدادهای مهم مانند ورود موفق/ناموفق، تغییرات Policy، دسترسی به فایل‌های حساس و تغییرات حساب کاربری. لاگ‌ها را به‌طور منظم بررسی کنید.</li>
+          <li><strong>Backup و قانون ۳-۲-۱:</strong> حداقل ۳ کپی از داده، روی ۲ نوع رسانه مختلف، و ۱ کپی خارج از محل اصلی. Backup بدون تست Restore ارزش واقعی ندارد.</li>
+          <li><strong>Windows Server Backup / wbadmin:</strong> ابزار بومی مایکروسافت برای Backup کامل و System State.</li>
+          <li><strong>Hardening پایه:</strong> غیرفعال کردن حساب‌های بلااستفاده، محدود کردن RDP، بستن پورت‌های غیرضروری و استفاده از حساب‌های با دسترسی محدود برای سرویس‌ها.</li>
         </ul>
-        <div class="warning"><b>اصل مهم:</b> Backupی که Restore آن تست نشده، Backup واقعی نیست.</div>
+        <div class="warning"><b>اصل مهم:</b> Backupی که Restore آن حداقل یک‌بار تست نشده باشد، Backup واقعی محسوب نمی‌شود.</div>
       </div>
       <div class="block">
         <h3>دستورات مهم</h3>
@@ -1388,17 +1424,18 @@ const chapters = [
     content: `
       <div class="block">
         <h3>مقدمه</h3>
-        <p>عیب‌یابی مهارت است نه حفظ کردن. روش سیستماتیک باعث می‌شود سریع‌تر به ریشه مشکل برسید و تغییرات بی‌مورد انجام ندهید.</p>
+        <p>عیب‌یابی یک مهارت است نه حفظ کردن دستورات. داشتن یک روش سیستماتیک باعث می‌شود سریع‌تر به ریشه مشکل برسید، از تغییرات بی‌مورد اجتناب کنید و بتوانید مشکل را مستند کنید. در محیط‌های واقعی، عجله برای ریستارت یا تغییر تصادفی تنظیمات اغلب مشکل را پیچیده‌تر می‌کند.</p>
       </div>
       <div class="block">
         <h3>چارچوب عیب‌یابی</h3>
         <ol>
-          <li><strong>مشکل را دقیق تعریف کنید:</strong> چه کسی؟ چه چیزی؟ از کی؟ چه تغییری اخیراً رخ داده؟</li>
-          <li><strong>لایه‌ها را از پایین بررسی کنید:</strong> Physical/Link → IP → Gateway → DNS → Authentication → Application</li>
-          <li><strong>برای مشکلات Domain:</strong> Connectivity → DNS → Time Sync → Kerberos/LDAP → GPO</li>
-          <li><strong>تغییرات را یکی‌یکی و قابل برگشت انجام دهید</strong> و نتیجه را ثبت کنید.</li>
-          <li><strong>از Event Viewer و PowerShell استفاده کنید.</strong></li>
+          <li><strong>مشکل را دقیق تعریف کنید:</strong> چه کسی تحت تأثیر است؟ چه چیزی کار نمی‌کند؟ از چه زمانی شروع شده؟ آیا تغییر اخیری انجام شده؟</li>
+          <li><strong>لایه‌ها را از پایین به بالا بررسی کنید:</strong> Physical/Link → IP Addressing → Gateway → DNS → Authentication → Application</li>
+          <li><strong>برای مشکلات Domain به‌طور خاص:</strong> Connectivity → DNS → Time Synchronization → Kerberos/LDAP → Group Policy</li>
+          <li><strong>تغییرات را یکی‌یکی و قابل برگشت انجام دهید</strong> و نتیجه هر تغییر را ثبت کنید.</li>
+          <li><strong>از ابزارهای استاندارد استفاده کنید:</strong> Event Viewer، PowerShell، dcdiag، repadmin، Test-NetConnection و gpresult.</li>
         </ol>
+        <div class="note"><b>نکته:</b> خیلی از مشکلات «AD» در واقع مشکل DNS یا اختلاف زمان هستند. همیشه اول این دو را چک کنید.</div>
       </div>
       <div class="block">
         <h3>ابزارها و دستورات کلیدی</h3>
