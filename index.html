@@ -1,103 +1,1799 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MCSA Cyber Academy — دانیال</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>MCSA Cyber — دانیال | فراگیر آکادمی راوین</title>
+<meta name="description" content="جزوه تعاملی کامل MCSA / Windows Server با تم سایبری حرفه‌ای — گردآورنده: دانیال">
 <style>
-:root{--bg:#050807;--panel:#0a100e;--card:#0d1512;--line:#16352a;--green:#39ff88;--muted:#8ba99b;--text:#e7fff0;--cyan:#43e6ff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.9}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.14;background-image:linear-gradient(#39ff8812 1px,transparent 1px),linear-gradient(90deg,#39ff8812 1px,transparent 1px);background-size:36px 36px}
-header{position:sticky;top:0;z-index:5;background:#050807e8;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
-.nav{max-width:1200px;margin:auto;padding:14px 20px;display:flex;gap:14px;align-items:center;justify-content:space-between}.brand{font-weight:900;color:var(--green);letter-spacing:.5px}.badge{font-family:monospace;color:var(--cyan)}
-.wrap{max-width:1200px;margin:auto;padding:28px 20px}.hero{border:1px solid var(--line);background:linear-gradient(135deg,#0b1712,#07100d);padding:28px;border-radius:18px;box-shadow:0 0 35px #39ff8810}
-h1{margin:0 0 8px;color:var(--green);font-size:clamp(28px,5vw,48px)}h2{color:var(--green);margin-top:34px}h3{color:var(--cyan)}
-.grid{display:grid;grid-template-columns:260px 1fr;gap:20px;margin-top:20px}.side{position:sticky;top:78px;height:max-content;border:1px solid var(--line);background:#08100d;padding:16px;border-radius:14px}.side button{display:block;width:100%;text-align:right;margin:6px 0;padding:10px 12px;border:1px solid transparent;background:#0b1712;color:var(--text);border-radius:9px;cursor:pointer}.side button:hover,.side button.active{border-color:var(--green);color:var(--green)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}.cmd{direction:ltr;text-align:left;background:#020504;border:1px solid #194532;border-radius:10px;padding:14px;color:var(--green);font-family:Consolas,monospace;overflow:auto}.note{border-right:3px solid var(--green);padding:10px 14px;background:#0a1711}.search{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#050a08;color:var(--text);font-size:16px;margin-bottom:12px}table{width:100%;border-collapse:collapse}td,th{border:1px solid var(--line);padding:10px;text-align:right}th{color:var(--green)}
-footer{text-align:center;color:var(--muted);padding:35px}.sig{color:var(--green);font-weight:bold}
-@media(max-width:800px){.grid{grid-template-columns:1fr}.side{position:static}.nav{align-items:flex-start;flex-direction:column}}
+:root {
+  --bg: #020805;
+  --bg2: #04100c;
+  --panel: #071410;
+  --card: #0a1a14;
+  --card-hover: #0e221b;
+  --line: #1a3d2e;
+  --line2: #245c42;
+  --green: #3dff9a;
+  --green-dim: #1a9b5c;
+  --cyan: #4de8ff;
+  --cyan-dim: #1a8a9b;
+  --purple: #a78bfa;
+  --text: #e6fff2;
+  --muted: #8fb39f;
+  --warning: #ffcc00;
+  --danger: #ff5c7a;
+  --success: #3dff9a;
+  --radius: 12px;
+  --shadow: 0 0 20px rgba(61,255,154,0.08);
+  --font: 'Tahoma', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'Consolas', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.85;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Subtle cyber grid */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.07;
+  background-image:
+    linear-gradient(var(--green) 1px, transparent 1px),
+    linear-gradient(90deg, var(--green) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Scanline effect - very subtle */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  opacity: 0.4;
+}
+
+/* Layout */
+.app {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, var(--bg2) 0%, var(--panel) 100%);
+  border-left: 1px solid var(--line);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.4);
+}
+
+.sidebar-header {
+  padding: 18px 16px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.logo {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 12px rgba(61,255,154,0.4);
+  margin-bottom: 4px;
+}
+
+.logo span { color: var(--cyan); }
+
+.subtitle {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.progress-box {
+  margin: 14px 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--bg);
+  border-radius: 99px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green-dim), var(--green));
+  border-radius: 99px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(61,255,154,0.5);
+  width: 0%;
+}
+
+.score-display {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.score-display strong { color: var(--cyan); }
+
+.nav-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 10px 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line2) transparent;
+}
+
+.nav-list::-webkit-scrollbar { width: 5px; }
+.nav-list::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 99px; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.84rem;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  text-align: right;
+}
+
+.nav-item:hover {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(61,255,154,0.12), transparent);
+  color: var(--green);
+  border-color: var(--line2);
+  box-shadow: inset 3px 0 0 var(--green);
+}
+
+.nav-item .num {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.nav-item.active .num {
+  background: rgba(61,255,154,0.15);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.nav-item.completed .num {
+  background: rgba(61,255,154,0.25);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.nav-item.completed .num::after { content: "✓"; }
+
+.nav-item.final {
+  margin-top: 12px;
+  border-top: 1px dashed var(--line);
+  padding-top: 16px;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  margin-right: 280px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(2,8,5,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menu-btn {
+  display: none;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--green);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-box {
+  flex: 1;
+  max-width: 320px;
+  position: relative;
+}
+
+.search-box input {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 9px 14px 9px 36px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box input:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(61,255,154,0.15); }
+.search-box input::placeholder { color: var(--muted); }
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn {
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn:hover {
+  background: var(--card-hover);
+  border-color: var(--line2);
+  color: var(--green);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, rgba(61,255,154,0.15), rgba(77,232,255,0.1));
+  border-color: var(--green-dim);
+  color: var(--green);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, rgba(61,255,154,0.25), rgba(77,232,255,0.15));
+  box-shadow: 0 0 16px rgba(61,255,154,0.2);
+}
+
+/* Content area */
+.content {
+  flex: 1;
+  padding: 24px 28px 60px;
+  max-width: 920px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Hero / Welcome */
+.hero {
+  text-align: center;
+  padding: 40px 20px 30px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(61,255,154,0.1);
+  border: 1px solid var(--line2);
+  color: var(--green);
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.hero h1 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--green), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+  text-shadow: none;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 520px;
+  margin: 0 auto 20px;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.stat {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  min-width: 110px;
+}
+
+.stat-val {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--green);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* Chapter card */
+.chapter {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+
+.chapter.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chapter-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.chapter-num {
+  font-size: 0.78rem;
+  color: var(--cyan);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.chapter-header h2 {
+  font-size: 1.55rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.chapter-header .lead {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Content blocks */
+.block {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  transition: border-color 0.2s;
+}
+
+.block:hover { border-color: var(--line2); }
+
+.block h3 {
+  font-size: 1.05rem;
+  color: var(--green);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.block h3::before {
+  content: "";
+  width: 4px;
+  height: 18px;
+  background: var(--green);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.block ul, .block ol {
+  padding-right: 20px;
+  margin: 8px 0;
+}
+
+.block li {
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.block p { margin-bottom: 10px; color: var(--text); }
+
+.note {
+  background: rgba(77,232,255,0.06);
+  border: 1px solid rgba(77,232,255,0.2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 12px 0;
+  font-size: 0.9rem;
+}
+
+.note b { color: var(--cyan); }
+
+.warning {
+  background: rgba(255,204,0,0.06);
+  border: 1px solid rgba(255,204,0,0.25);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 12px 0;
+  font-size: 0.9rem;
+}
+
+.warning b { color: var(--warning); }
+
+/* Code / Commands */
+.cmd {
+  background: #020a07;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--green);
+  direction: ltr;
+  text-align: left;
+  overflow-x: auto;
+  position: relative;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.cmd::before {
+  content: "PS>";
+  color: var(--cyan);
+  margin-left: 8px;
+  font-weight: 700;
+}
+
+.cmd-copy {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cmd:hover .cmd-copy { opacity: 1; }
+.cmd-copy:hover { color: var(--green); border-color: var(--green); }
+
+/* Quiz section */
+.quiz {
+  background: linear-gradient(145deg, var(--card), #0c1f18);
+  border: 1px solid var(--line2);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-top: 28px;
+}
+
+.quiz h3 {
+  color: var(--cyan);
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+
+.question {
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 14px;
+  transition: border-color 0.2s;
+}
+
+.question.correct { border-color: var(--green); box-shadow: 0 0 12px rgba(61,255,154,0.15); }
+.question.wrong { border-color: var(--danger); }
+
+.q-text {
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.q-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 0.88rem;
+}
+
+.q-opt:hover:not(.disabled) {
+  border-color: var(--line2);
+  background: var(--card-hover);
+}
+
+.q-opt.selected {
+  border-color: var(--cyan);
+  background: rgba(77,232,255,0.08);
+}
+
+.q-opt.correct-opt {
+  border-color: var(--green);
+  background: rgba(61,255,154,0.1);
+}
+
+.q-opt.wrong-opt {
+  border-color: var(--danger);
+  background: rgba(255,92,122,0.08);
+}
+
+.q-opt input { display: none; }
+
+.q-opt .radio {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--line2);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.q-opt.selected .radio {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  box-shadow: inset 0 0 0 3px var(--card);
+}
+
+.q-feedback {
+  margin-top: 10px;
+  font-size: 0.84rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: none;
+}
+
+.q-feedback.show { display: block; }
+.q-feedback.ok { background: rgba(61,255,154,0.1); color: var(--green); }
+.q-feedback.fail { background: rgba(255,92,122,0.1); color: var(--danger); }
+
+.quiz-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.quiz-result {
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  text-align: center;
+  display: none;
+}
+
+.quiz-result.show { display: block; }
+.quiz-result .big { font-size: 1.6rem; font-weight: 700; color: var(--green); }
+
+/* Final exam */
+.exam-intro {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+  background: var(--bg2);
+}
+
+footer .credit {
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* Overlay for mobile */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 90;
+}
+
+.overlay.show { display: block; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main { margin-right: 0; }
+  .menu-btn { display: flex; }
+  .content { padding: 18px 16px 50px; }
+  .hero h1 { font-size: 1.5rem; }
+  .search-box { max-width: none; }
+}
+
+@media (max-width: 500px) {
+  .hero-stats { gap: 10px; }
+  .stat { min-width: 90px; padding: 10px 12px; }
+  .stat-val { font-size: 1.2rem; }
+  .topbar { padding: 8px 12px; }
+  .btn { padding: 7px 10px; font-size: 0.78rem; }
+}
+
+/* Utility */
+.hidden { display: none !important; }
+.text-muted { color: var(--muted); }
+.mt-2 { margin-top: 12px; }
 </style>
 </head>
 <body>
-<header><div class="nav"><div class="brand">◉ MCSA // CYBER NOTES</div><div class="badge">root@danial:~$ study</div></div></header>
-<main class="wrap">
-<section class="hero">
-<h1>MCSA — Cyber Edition</h1>
-<p>جزوه آموزشی Windows Server، شبکه و زیرساخت؛ با ظاهر سایبری و تمرکز روی یادگیری عملی.</p>
-<p class="badge">[ گردآورنده: دانیال ]</p>
-</section>
-<div class="grid">
-<aside class="side">
-<input id="search" class="search" placeholder="جستجو در جزوه...">
-<button class="active" data-ch="1">01 — Windows Server</button>
-<button data-ch="2">02 — Networking</button>
-<button data-ch="3">03 — Active Directory</button>
-<button data-ch="4">04 — DNS</button>
-<button data-ch="5">05 — DHCP</button>
-<button data-ch="6">06 — Group Policy</button>
-<button data-ch="7">07 — File Server</button>
-</aside>
-<section id="content">
-<div class="card chapter">
-<h2>فصل ۱ — آشنایی با Windows Server و مفاهیم زیرساخت</h2>
-<h3>1.1 — Windows Server چیست؟</h3>
-<p>Windows Server سیستم‌عامل مایکروسافت برای ارائه و مدیریت سرویس‌های شبکه، کاربران، کامپیوترها و منابع سازمانی است.</p>
-<div class="note">نکته: در محیط‌های سازمانی، Server معمولاً یک یا چند Role و Service مشخص را ارائه می‌دهد.</div>
-<h3>1.2 — Server و Client</h3>
-<p><b>Server</b> سرویس ارائه می‌کند و <b>Client</b> از سرویس‌ها استفاده می‌کند. یک سیستم می‌تواند بسته به سناریو نقش‌های متفاوتی داشته باشد.</p>
-<h3>1.3 — IP Address</h3>
-<p>نمونه IPv4:</p><pre class="cmd">192.168.10.10</pre>
-<h3>1.4 — Subnet Mask</h3>
-<pre class="cmd">IP:   192.168.10.10
-Mask: 255.255.255.0
-CIDR: /24</pre>
-<h3>1.5 — DNS</h3>
-<p>DNS نام را به IP و در برخی سناریوها IP را به نام تبدیل می‌کند. در Active Directory نقش بسیار مهمی دارد.</p>
-<h3>1.6 — DHCP</h3>
-<p>DHCP تنظیمات شبکه مانند IP، Subnet Mask، Gateway و DNS را به‌صورت خودکار به Client می‌دهد.</p>
-<h3>1.7 — Domain و Active Directory</h3>
-<p>Domain محیط مدیریت متمرکز کاربران و سیستم‌هاست و AD DS سرویس اصلی مایکروسافت برای مدیریت هویت و منابع Domain است.</p>
-<h3>1.8 — Domain Controller</h3>
-<p>سروری که AD DS روی آن نصب شده و وظایف مربوط به احراز هویت و مدیریت Domain را انجام می‌دهد.</p>
-<h3>1.9 — PowerShell</h3>
-<pre class="cmd">Get-NetIPAddress
-Get-NetAdapter
-Get-ComputerInfo
-Get-Service
-Get-Process
-Clear-Host</pre>
-<h3>1.10 — ابزارهای پایه شبکه</h3>
-<pre class="cmd">ipconfig /all
-ping 192.168.1.1
-nslookup google.com
-tracert google.com</pre>
-<h3>1.11 — سناریوی عملی</h3>
-<pre class="cmd">Server: DC01
-IP:     192.168.10.10
-Mask:   255.255.255.0
-DNS:    192.168.10.10</pre>
-<p>ابتدا نام سیستم و تنظیمات شبکه را بررسی کنید:</p>
-<pre class="cmd">hostname
-ipconfig /all
-ping 192.168.10.1</pre>
-<h3>1.12 — جدول مرور سریع</h3>
-<table><tr><th>مفهوم</th><th>وظیفه</th></tr>
-<tr><td>IP</td><td>آدرس دستگاه در شبکه</td></tr>
-<tr><td>Subnet Mask</td><td>تعیین محدوده شبکه</td></tr>
-<tr><td>Gateway</td><td>مسیر رسیدن به شبکه‌های دیگر</td></tr>
-<tr><td>DNS</td><td>تبدیل نام و IP</td></tr>
-<tr><td>DHCP</td><td>اختصاص خودکار تنظیمات شبکه</td></tr>
-<tr><td>AD DS</td><td>مدیریت هویت و منابع Domain</td></tr></table>
-<h3>تمرین فصل ۱</h3>
-<ol><li>تفاوت Server و Client را توضیح دهید.</li><li>برای 192.168.10.25 با Mask 255.255.255.0، Network را مشخص کنید.</li><li>وظیفه DNS چیست؟</li><li>DHCP چه اطلاعاتی به Client می‌دهد؟</li><li>Workgroup و Domain را مقایسه کنید.</li><li>دستورات <code>hostname</code>، <code>ipconfig /all</code> و <code>Get-NetIPAddress</code> را اجرا و خروجی را بررسی کنید.</li></ol>
+<div class="overlay" id="overlay"></div>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">MCSA <span>Cyber</span></div>
+      <div class="subtitle">جزوه تعاملی حرفه‌ای</div>
+    </div>
+    <div class="progress-box">
+      <div class="progress-label">
+        <span>پیشرفت کلی</span>
+        <span id="progressText">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="score-display">
+        <span>امتیاز کل: <strong id="totalScore">0</strong></span>
+        <span>فصل‌ها: <strong id="completedCount">0</strong>/12</span>
+      </div>
+    </div>
+    <nav class="nav-list" id="navList">
+      <!-- filled by JS -->
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="منو">☰</button>
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="search" id="searchInput" placeholder="جستجو در فصل‌ها..." autocomplete="off">
+      </div>
+      <div class="top-actions">
+        <button class="btn" id="resetBtn" title="بازنشانی پیشرفت">↺ بازنشانی</button>
+      </div>
+    </header>
+
+    <main class="content" id="content">
+      <!-- Welcome -->
+      <section class="chapter active" id="welcome">
+        <div class="hero">
+          <div class="hero-badge">نسخه حرفه‌ای تعاملی</div>
+          <h1>MCSA Cyber Notes</h1>
+          <p>۱۲ فصل کامل Windows Server با تمرین تعاملی، سیستم امتیازدهی و ذخیره پیشرفت — مناسب دسکتاپ و موبایل</p>
+          <div class="hero-stats">
+            <div class="stat"><span class="stat-val">۱۲</span><span class="stat-label">فصل کامل</span></div>
+            <div class="stat"><span class="stat-val" id="quizCount">۶۰+</span><span class="stat-label">سؤال تعاملی</span></div>
+            <div class="stat"><span class="stat-val">۱</span><span class="stat-label">آزمون نهایی</span></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>چطور استفاده کنیم؟</h3>
+          <ul>
+            <li>از منوی سمت راست فصل مورد نظر را انتخاب کنید.</li>
+            <li>محتوای هر فصل را با دقت بخوانید و دستورات را در محیط Lab تمرین کنید.</li>
+            <li>در پایان هر فصل، تمرین تعاملی را حل کنید تا امتیاز بگیرید.</li>
+            <li>پیشرفت و امتیاز شما به‌صورت خودکار در مرورگر ذخیره می‌شود.</li>
+            <li>پس از اتمام فصل‌ها، آزمون نهایی جامع را بدهید.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>محیط Lab پیشنهادی</h3>
+          <p>برای تمرین عملی این ساختار را در Hyper-V یا VirtualBox پیاده‌سازی کنید:</p>
+          <ul>
+            <li><strong>DC01</strong> — Windows Server (Domain Controller) — IP: <code dir="ltr">192.168.10.10/24</code></li>
+            <li><strong>SRV01</strong> — Windows Server (Member Server) — IP: <code dir="ltr">192.168.10.20/24</code></li>
+            <li><strong>PC01</strong> — Windows 10/11 Client — IP: DHCP یا ثابت</li>
+            <li>Gateway / DNS: <code dir="ltr">192.168.10.10</code></li>
+          </ul>
+          <div class="note"><b>نکته:</b> همه تمرین‌ها روی همین Lab قابل اجرا هستند. قبل از شروع، Snapshot بگیرید.</div>
+        </div>
+
+        <div class="block">
+          <h3>درباره این جزوه</h3>
+          <p>این محتوای آموزشی مستقل برای یادگیری مفاهیم پایه تا پیشرفته Windows Server و آمادگی ذهنی برای مسیر MCSA طراحی شده است. متن اختصاصی دوره‌های تجاری را بازتولید نمی‌کند و تمرکز روی درک عملی و تمرین دارد.</p>
+        </div>
+      </section>
+
+      <!-- Chapters will be injected here by JS -->
+      <div id="chaptersContainer"></div>
+    </main>
+
+    <footer>
+      گردآورنده: <span class="credit">دانیال — فراگیر آکادمی راوین</span>
+    </footer>
+  </div>
 </div>
-</section>
-</div>
-</main>
-<footer>گردآورنده: <span class="sig">دانیال</span> — MCSA Cyber Notes</footer>
+
 <script>
-const buttons=[...document.querySelectorAll('.side button')], chapter=document.querySelector('.chapter'), search=document.querySelector('#search');
-buttons.forEach(b=>b.addEventListener('click',()=>{buttons.forEach(x=>x.classList.remove('active'));b.classList.add('active'); if(b.dataset.ch!=='1'){chapter.innerHTML='<h2>فصل '+b.dataset.ch+' — در حال آماده‌سازی</h2><p>محتوای این فصل در ادامه تکمیل می‌شود.</p>'}}));
-search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();chapter.querySelectorAll('h3,p,li,td').forEach(e=>{e.style.outline=q&&e.textContent.toLowerCase().includes(q)?'1px solid #39ff88':''})});
+// ===================== DATA =====================
+const chapters = [
+  {
+    id: "c01",
+    num: "01",
+    title: "Windows Server و مبانی زیرساخت",
+    lead: "شناخت Windows Server، نقش‌ها، IP، Domain و ابزارهای مدیریتی پایه",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>Windows Server سیستم‌عامل سرور مایکروسافت است که برای ارائه سرویس‌های شبکه، مدیریت هویت، ذخیره‌سازی و مجازی‌سازی طراحی شده. برخلاف Windows Client که برای کاربر نهایی است، Server برای ارائه سرویس به تعداد زیادی کلاینت ساخته شده.</p>
+        <p>نسخه‌های رایج: Windows Server 2016، 2019، 2022 و 2025. دو حالت نصب اصلی وجود دارد:</p>
+        <ul>
+          <li><strong>Desktop Experience (GUI)</strong> — رابط گرافیکی کامل</li>
+          <li><strong>Server Core</strong> — بدون GUI، سبک‌تر و امن‌تر</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>Server vs Client:</strong> سرور سرویس ارائه می‌کند (مثل DNS، File Share، Authentication). کلاینت از سرویس استفاده می‌کند.</li>
+          <li><strong>Role و Feature:</strong> Role مجموعه‌ای از سرویس‌های مرتبط است (مثل AD DS، DHCP). Feature قابلیت‌های کمکی است (مثل .NET Framework، Telnet Client).</li>
+          <li><strong>Domain:</strong> محیط مدیریت متمرکز کاربران، کامپیوترها و منابع. Domain Controller (DC) سروری است که Active Directory Domain Services روی آن نصب شده.</li>
+          <li><strong>Workgroup:</strong> محیط بدون Domain که هر کامپیوتر هویت خودش را مدیریت می‌کند (مناسب شبکه‌های خیلی کوچک).</li>
+          <li><strong>IP Address:</strong> آدرس منطقی دستگاه در شبکه. Gateway مسیر خروج از شبکه محلی است. DNS نام را به IP تبدیل می‌کند.</li>
+        </ul>
+        <div class="note"><b>هدف فصل:</b> بتوانید تفاوت Server و Client را توضیح دهید، یک Server را با IP ثابت پیکربندی کنید و مفهوم Domain را درک کنید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">hostname</div>
+        <div class="cmd">ipconfig /all</div>
+        <div class="cmd">Get-NetIPAddress</div>
+        <div class="cmd">Get-NetAdapter</div>
+        <div class="cmd">Get-Service | Where-Object Status -eq 'Running'</div>
+        <div class="cmd">Get-WindowsFeature | Where-Object InstallState -eq 'Installed'</div>
+        <div class="cmd">sconfig</div>
+        <p class="text-muted mt-2">دستور <code>sconfig</code> در Server Core منوی متنی مدیریتی سریع ارائه می‌دهد.</p>
+      </div>
+      <div class="block">
+        <h3>نکات عملی Lab</h3>
+        <ul>
+          <li>همیشه به سرورها IP ثابت بدهید (هرگز DHCP برای DC یا سرورهای حیاتی).</li>
+          <li>نام کامپیوتر را قبل از Join به Domain تنظیم کنید.</li>
+          <li>از Server Manager یا PowerShell برای نصب Role استفاده کنید.</li>
+          <li>Firewall را بی‌دلیل خاموش نکنید؛ Ruleهای لازم را اضافه کنید.</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "تفاوت اصلی Windows Server با Windows Client چیست؟", options: ["Server فقط برای بازی است", "Server برای ارائه سرویس به کلاینت‌ها طراحی شده", "Client قدرتمندتر از Server است", "هیچ تفاوتی ندارند"], answer: 1, explain: "Windows Server برای ارائه سرویس‌های شبکه و مدیریت متمرکز ساخته شده، در حالی که Client برای کاربر نهایی است." },
+      { q: "Domain Controller چه نقشی دارد؟", options: ["فقط فایل به اشتراک می‌گذارد", "سروری است که AD DS روی آن نصب شده و احراز هویت را انجام می‌دهد", "فقط اینترنت را مدیریت می‌کند", "یک کلاینت معمولی است"], answer: 1, explain: "DC پایگاه هویت Domain است و سرویس‌های Authentication و Authorization را ارائه می‌دهد." },
+      { q: "کدام حالت نصب Windows Server سبک‌تر و سطح حمله کمتری دارد؟", options: ["Desktop Experience", "Server Core", "هر دو یکسان‌اند", "Windows 11"], answer: 1, explain: "Server Core بدون رابط گرافیکی کامل است، منابع کمتری مصرف می‌کند و سطح حمله کوچک‌تری دارد." },
+      { q: "برای سرورهای حیاتی مثل DC، تنظیم IP چگونه باید باشد؟", options: ["حتماً DHCP", "IP ثابت (Static)", "مهم نیست", "فقط IPv6"], answer: 1, explain: "سرورهای حیاتی باید IP ثابت داشته باشند تا وابستگی به DHCP نداشته باشند." }
+    ]
+  },
+  {
+    id: "c02",
+    num: "02",
+    title: "Networking و TCP/IP",
+    lead: "IPv4، Subnetting، TCP/UDP، Port، Routing و عیب‌یابی شبکه",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>شبکه زیربنای همه سرویس‌های Windows Server است. بدون درک درست TCP/IP، عیب‌یابی DNS، DHCP، AD و حتی File Share تقریباً غیرممکن می‌شود.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>IPv4:</strong> آدرس ۳۲ بیتی به صورت چهار Octet (مثال: 192.168.10.20). Subnet Mask مشخص می‌کند کدام بخش Network و کدام Host است.</li>
+          <li><strong>/24:</strong> معادل 255.255.255.0 — یعنی ۲۴ بیت شبکه و ۸ بیت میزبان (تا ۲۵۴ Host مفید).</li>
+          <li><strong>TCP:</strong> اتصال‌گرا، قابل اطمینان، مناسب فایل و وب. <strong>UDP:</strong> بدون اتصال پایدار، سریع‌تر، مناسب DNS و استریم.</li>
+          <li><strong>Port:</strong> شماره ۰ تا ۶۵۵۳۵ که سرویس‌ها را از هم جدا می‌کند (مثلاً ۸۰ برای HTTP، ۴۴۳ HTTPS، ۵۳ DNS، ۳۳۸۹ RDP).</li>
+          <li><strong>Gateway:</strong> روتری که ترافیک خارج از شبکه محلی را هدایت می‌کند.</li>
+          <li><strong>ARP:</strong> نگاشت IP به MAC Address در شبکه محلی.</li>
+        </ul>
+        <div class="note"><b>هدف فصل:</b> بتوانید IP و Subnet را تحلیل کنید، تفاوت TCP و UDP را بگویید و با ابزارهای عیب‌یابی شبکه کار کنید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">ipconfig /all</div>
+        <div class="cmd">ping 192.168.10.1 -t</div>
+        <div class="cmd">tracert 8.8.8.8</div>
+        <div class="cmd">arp -a</div>
+        <div class="cmd">route print</div>
+        <div class="cmd">Test-NetConnection 192.168.10.10 -Port 445</div>
+        <div class="cmd">Get-NetTCPConnection -State Established</div>
+        <div class="cmd">Resolve-DnsName example.com</div>
+      </div>
+      <div class="block">
+        <h3>عیب‌یابی مرحله‌ای</h3>
+        <ol>
+          <li>بررسی فیزیکی / Link (کابل، وضعیت Adapter)</li>
+          <li>بررسی IP و Gateway (<code>ipconfig</code>)</li>
+          <li>Ping به Gateway و سپس به مقصد</li>
+          <li>بررسی DNS (<code>nslookup</code> یا <code>Resolve-DnsName</code>)</li>
+          <li>بررسی Port با <code>Test-NetConnection</code></li>
+        </ol>
+      </div>
+    `,
+    questions: [
+      { q: "Subnet Mask معادل /24 کدام است؟", options: ["255.255.0.0", "255.255.255.0", "255.0.0.0", "255.255.255.255"], answer: 1, explain: "/24 یعنی ۲۴ بیت شبکه که معادل 255.255.255.0 است." },
+      { q: "تفاوت اصلی TCP و UDP چیست؟", options: ["TCP سریع‌تر است", "TCP اتصال‌گرا و قابل اطمینان است؛ UDP بدون اتصال پایدار", "UDP فقط برای وب استفاده می‌شود", "هیچ تفاوتی ندارند"], answer: 1, explain: "TCP برای اطمینان از تحویل داده اتصال برقرار می‌کند؛ UDP سریع‌تر اما بدون تضمین تحویل است." },
+      { q: "کدام دستور برای تست باز بودن یک Port مناسب است؟", options: ["ping", "Test-NetConnection -Port", "hostname", "ipconfig"], answer: 1, explain: "Test-NetConnection با پارامتر -Port وضعیت دسترسی به پورت را بررسی می‌کند." },
+      { q: "Gateway چه نقشی دارد؟", options: ["فقط DNS را مدیریت می‌کند", "مسیر خروج ترافیک از شبکه محلی را فراهم می‌کند", "فایل‌ها را به اشتراک می‌گذارد", "کاربران را احراز هویت می‌کند"], answer: 1, explain: "Gateway (معمولاً روتر) ترافیک مقصد خارج از Subnet محلی را هدایت می‌کند." }
+    ]
+  },
+  {
+    id: "c03",
+    num: "03",
+    title: "Active Directory Domain Services",
+    lead: "Domain، Domain Controller، کاربر، گروه، OU و مدیریت هویت",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>Active Directory Domain Services (AD DS) قلب مدیریت هویت در محیط‌های مایکروسافتی است. با AD می‌توانید کاربران، کامپیوترها، گروه‌ها و سیاست‌ها را به‌صورت متمرکز مدیریت کنید.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>Forest و Domain:</strong> Forest بالاترین سطح امنیتی است. هر Forest حداقل یک Domain دارد.</li>
+          <li><strong>Domain Controller:</strong> سروری که کپی پایگاه داده AD را نگه می‌دارد و Authentication انجام می‌دهد.</li>
+          <li><strong>OU (Organizational Unit):</strong> ظرف منطقی برای سازمان‌دهی اشیاء و اعمال Group Policy.</li>
+          <li><strong>گروه:</strong> Security Group برای Permission و Distribution Group برای ایمیل. بهترین روش: کاربران را در گروه بگذارید و Permission را به گروه بدهید (AGDLP).</li>
+          <li><strong>FSMO Roles:</strong> نقش‌های خاص که روی DCهای مشخصی قرار دارند (Schema Master، Domain Naming Master، PDC Emulator، RID Master، Infrastructure Master).</li>
+          <li><strong>Global Catalog:</strong> فهرستی جزئی از همه اشیاء Forest برای جستجوی سریع.</li>
+        </ul>
+        <div class="note"><b>هدف فصل:</b> بتوانید Domain بسازید، کاربر و OU ایجاد کنید و ساختار منطقی AD را طراحی کنید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">Install-WindowsFeature AD-Domain-Services -IncludeManagementTools</div>
+        <div class="cmd">Install-ADDSForest -DomainName "lab.local" -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd123" -AsPlainText -Force)</div>
+        <div class="cmd">Get-ADDomain</div>
+        <div class="cmd">Get-ADUser -Filter * | Select Name, SamAccountName</div>
+        <div class="cmd">New-ADUser -Name "Ali Rezaei" -SamAccountName "ali" -UserPrincipalName "ali@lab.local" -AccountPassword (ConvertTo-SecureString "P@ss1234" -AsPlainText -Force) -Enabled $true</div>
+        <div class="cmd">New-ADOrganizationalUnit -Name "IT" -Path "DC=lab,DC=local"</div>
+        <div class="cmd">Add-ADGroupMember -Identity "Domain Admins" -Members "ali"</div>
+      </div>
+      <div class="block">
+        <h3>نکات طراحی</h3>
+        <ul>
+          <li>ساختار OU را بر اساس سازمان یا مکان طراحی کنید، نه صرفاً بر اساس دپارتمان‌های موقتی.</li>
+          <li>از حساب‌های Administrator پیش‌فرض برای کارهای روزمره استفاده نکنید.</li>
+          <li>حداقل دو Domain Controller در هر Domain داشته باشید.</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "OU در Active Directory چه کاربردی دارد؟", options: ["فقط برای ذخیره پسورد است", "سازمان‌دهی اشیاء و اعمال Group Policy", "جایگزین Domain است", "فقط برای ایمیل استفاده می‌شود"], answer: 1, explain: "OU ظرف منطقی است که هم برای سازمان‌دهی و هم برای لینک کردن GPO استفاده می‌شود." },
+      { q: "بهترین روش مدیریت Permission چیست؟", options: ["مستقیماً به کاربر Permission بدهیم", "کاربران را در گروه بگذاریم و Permission را به گروه بدهیم", "همه را Domain Admin کنیم", "Permission لازم نیست"], answer: 1, explain: "مدل AGDLP توصیه می‌کند Permission را به گروه‌ها بدهید نه مستقیماً به کاربران." },
+      { q: "حداقل تعداد Domain Controller توصیه‌شده در هر Domain چقدر است؟", options: ["۱", "۲ یا بیشتر", "۵", "۱۰"], answer: 1, explain: "برای redundancy و در دسترس بودن، حداقل دو DC توصیه می‌شود." },
+      { q: "کدام دستور اطلاعات Domain را نمایش می‌دهد؟", options: ["Get-Service", "Get-ADDomain", "ipconfig", "hostname"], answer: 1, explain: "Get-ADDomain اطلاعات مربوط به Domain فعلی را برمی‌گرداند." }
+    ]
+  },
+  {
+    id: "c04",
+    num: "04",
+    title: "DNS Server",
+    lead: "Zone، Record، Forwarder، Reverse Lookup و نقش DNS در AD",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>DNS سیستم نام‌گذاری اینترنت و شبکه‌های داخلی است. در محیط Active Directory، DNS حیاتی است؛ بدون DNS درست، Join به Domain، احراز هویت و بسیاری سرویس‌ها شکست می‌خورند.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>Zone:</strong> بخشی از فضای نام DNS که یک سرور مسئول آن است. انواع: Primary، Secondary، Stub و AD-Integrated.</li>
+          <li><strong>Recordهای مهم:</strong> A (IPv4)، AAAA (IPv6)، CNAME (Alias)، MX (ایمیل)، PTR (Reverse)، SRV (سرویس‌های AD).</li>
+          <li><strong>Forward Lookup:</strong> نام → IP. <strong>Reverse Lookup:</strong> IP → نام.</li>
+          <li><strong>Forwarder:</strong> سروری که کوئری‌های خارج از Zone خود را به آن می‌فرستد (مثلاً 8.8.8.8).</li>
+          <li><strong>AD-Integrated Zone:</strong> Zone که در پایگاه AD ذخیره می‌شود و بین DCها replicate می‌شود — بهترین انتخاب برای Domain.</li>
+          <li><strong>SRV Records:</strong> برای پیدا کردن سرویس‌هایی مثل LDAP و Kerberos توسط کلاینت‌ها ضروری هستند.</li>
+        </ul>
+        <div class="warning"><b>هشدار:</b> اشتباه در DNS یکی از شایع‌ترین دلایل مشکلات AD است. همیشه DNS را اول بررسی کنید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">Install-WindowsFeature DNS -IncludeManagementTools</div>
+        <div class="cmd">Add-DnsServerPrimaryZone -Name "lab.local" -ReplicationScope "Domain"</div>
+        <div class="cmd">Add-DnsServerResourceRecordA -ZoneName "lab.local" -Name "srv01" -IPv4Address "192.168.10.20"</div>
+        <div class="cmd">Get-DnsServerZone</div>
+        <div class="cmd">Resolve-DnsName dc01.lab.local</div>
+        <div class="cmd">nslookup dc01.lab.local</div>
+        <div class="cmd">Get-DnsServerResourceRecord -ZoneName "lab.local"</div>
+        <div class="cmd">Clear-DnsClientCache</div>
+      </div>
+      <div class="block">
+        <h3>عیب‌یابی DNS</h3>
+        <ul>
+          <li>کلاینت باید DNS سرور داخلی را داشته باشد (نه فقط 8.8.8.8).</li>
+          <li>با <code>nslookup</code> یا <code>Resolve-DnsName</code> تست کنید.</li>
+          <li>کش کلاینت را پاک کنید: <code>ipconfig /flushdns</code> یا <code>Clear-DnsClientCache</code>.</li>
+          <li>SRV Recordهای Domain را بررسی کنید.</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "کدام نوع Zone برای محیط Active Directory بهترین انتخاب است؟", options: ["Secondary", "AD-Integrated", "Stub", "فقط Primary فایل‌محور"], answer: 1, explain: "AD-Integrated Zone در پایگاه AD ذخیره و بین DCها replicate می‌شود و امنیت و redundancy بهتری دارد." },
+      { q: "Record نوع A چه کاری انجام می‌دهد؟", options: ["نام را به IPv6 نگاشت می‌کند", "نام را به IPv4 نگاشت می‌کند", "فقط برای ایمیل است", "IP را به نام تبدیل می‌کند"], answer: 1, explain: "A Record نام میزبان را به آدرس IPv4 نگاشت می‌کند. PTR برای Reverse است." },
+      { q: "اگر کلاینت نتواند DC را پیدا کند، اولین چیزی که باید بررسی شود چیست؟", options: ["فقط Firewall", "تنظیمات DNS کلاینت و SRV Records", "فقط کابل شبکه", "نسخه ویندوز"], answer: 1, explain: "بیشتر مشکلات Join و Authentication به DNS نادرست یا نبود SRV Record مربوط می‌شود." },
+      { q: "دستور پاک کردن کش DNS در کلاینت چیست؟", options: ["ipconfig /release", "ipconfig /flushdns", "ping /flush", "netstat -a"], answer: 1, explain: "ipconfig /flushdns یا Clear-DnsClientCache کش Resolver را پاک می‌کند." }
+    ]
+  },
+  {
+    id: "c05",
+    num: "05",
+    title: "DHCP Server",
+    lead: "Scope، Lease، Reservation، Option و Authorization",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>DHCP به‌صورت خودکار تنظیمات شبکه (IP، Mask، Gateway، DNS و ...) را به کلاینت‌ها می‌دهد. در شبکه‌های متوسط و بزرگ، مدیریت دستی IP غیرعملی است.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>Scope:</strong> محدوده آدرس‌های IP که DHCP می‌تواند اختصاص دهد (مثلاً 192.168.10.100 تا 192.168.10.200).</li>
+          <li><strong>Lease:</strong> مدت زمانی که کلاینت می‌تواند از IP استفاده کند. قبل از پایان، Renewal انجام می‌دهد.</li>
+          <li><strong>Reservation:</strong> اختصاص همیشگی یک IP خاص به یک MAC Address (مناسب پرینتر و دستگاه‌های خاص).</li>
+          <li><strong>Exclusion:</strong> بازه‌ای از IPها که DHCP نباید بدهد (برای سرورها).</li>
+          <li><strong>Options:</strong> تنظیمات اضافی مثل Router (003)، DNS Server (006)، DNS Domain Name (015).</li>
+          <li><strong>Authorization:</strong> در محیط Domain، DHCP Server باید در AD Authorize شود وگرنه IP توزیع نمی‌کند.</li>
+        </ul>
+        <div class="note"><b>هدف فصل:</b> بتوانید DHCP را نصب، Authorize و Scope بسازید و Reservation تعریف کنید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">Install-WindowsFeature DHCP -IncludeManagementTools</div>
+        <div class="cmd">Add-DhcpServerInDC -DnsName "dc01.lab.local" -IPAddress 192.168.10.10</div>
+        <div class="cmd">Add-DhcpServerv4Scope -Name "LAN" -StartRange 192.168.10.100 -EndRange 192.168.10.200 -SubnetMask 255.255.255.0</div>
+        <div class="cmd">Set-DhcpServerv4OptionValue -ScopeId 192.168.10.0 -Router 192.168.10.1 -DnsServer 192.168.10.10 -DnsDomain "lab.local"</div>
+        <div class="cmd">Add-DhcpServerv4Reservation -ScopeId 192.168.10.0 -IPAddress 192.168.10.50 -ClientId "AA-BB-CC-DD-EE-FF" -Description "Printer"</div>
+        <div class="cmd">Get-DhcpServerv4Lease -ScopeId 192.168.10.0</div>
+      </div>
+      <div class="block">
+        <h3>نکات مهم</h3>
+        <ul>
+          <li>سرور DHCP خودش باید IP ثابت داشته باشد.</li>
+          <li>در شبکه‌های بزرگ از DHCP Failover استفاده کنید.</li>
+          <li>Exclusion برای سرورها و دستگاه‌های ثابت تعریف کنید.</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "چرا DHCP Server در Domain باید Authorize شود؟", options: ["برای زیبایی", "جلوگیری از Rogue DHCP Server", "فقط برای IPv6", "لازم نیست"], answer: 1, explain: "Authorization مکانیزم امنیتی AD است تا سرورهای غیرمجاز نتوانند IP توزیع کنند." },
+      { q: "Reservation چه کاربردی دارد؟", options: ["حذف IP", "اختصاص دائمی یک IP به یک MAC خاص", "افزایش سرعت اینترنت", "تغییر Subnet Mask"], answer: 1, explain: "Reservation باعث می‌شود دستگاهی با MAC مشخص همیشه همان IP را بگیرد." },
+      { q: "Option شماره 006 معمولاً چیست؟", options: ["Router", "DNS Server", "Subnet Mask", "NTP"], answer: 1, explain: "Option 006 آدرس سرور(های) DNS را مشخص می‌کند." },
+      { q: "سرور DHCP خودش باید چه نوع IP داشته باشد؟", options: ["DHCP", "Static (ثابت)", "APIPA", "مهم نیست"], answer: 1, explain: "خود DHCP Server باید IP ثابت داشته باشد تا پایدار بماند." }
+    ]
+  },
+  {
+    id: "c06",
+    num: "06",
+    title: "Group Policy",
+    lead: "GPO، Inheritance، لینک کردن، امنیت و تنظیمات رایج",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>Group Policy قدرتمندترین ابزار مدیریت متمرکز تنظیمات کاربران و کامپیوترها در محیط Domain است. با GPO می‌توانید سیاست پسورد، نقشه درایو، نصب نرم‌افزار، محدودیت‌های امنیتی و صدها تنظیم دیگر را اعمال کنید.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>GPO (Group Policy Object):</strong> مجموعه‌ای از تنظیمات که می‌تواند به Site، Domain یا OU لینک شود.</li>
+          <li><strong>Inheritance:</strong> تنظیمات از بالا به پایین به ارث می‌رسند مگر اینکه Block Inheritance یا Enforced استفاده شود.</li>
+          <li><strong>Computer Configuration vs User Configuration:</strong> یکی هنگام روشن شدن کامپیوتر و دیگری هنگام ورود کاربر اعمال می‌شود.</li>
+          <li><strong>Security Filtering:</strong> محدود کردن اعمال GPO به گروه‌ها یا کاربران خاص.</li>
+          <li><strong>Loopback Processing:</strong> در سناریوهای خاص (مثل کیوسک) باعث می‌شود User Configuration از GPO کامپیوتر اعمال شود.</li>
+          <li><strong>gpupdate /force:</strong> اعمال فوری سیاست‌ها.</li>
+        </ul>
+        <div class="note"><b>هدف فصل:</b> بتوانید GPO بسازید، لینک کنید و نتیجه را روی کلاینت تست کنید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات و ابزارها</h3>
+        <div class="cmd">gpupdate /force</div>
+        <div class="cmd">gpresult /r</div>
+        <div class="cmd">gpresult /h report.html</div>
+        <div class="cmd">Get-GPO -All</div>
+        <div class="cmd">Get-GPOReport -Name "Default Domain Policy" -ReportType Html -Path C:\\Temp\\gpo.html</div>
+        <p class="text-muted mt-2">ابزار اصلی گرافیکی: Group Policy Management Console (GPMC).</p>
+      </div>
+      <div class="block">
+        <h3>تنظیمات پرکاربرد</h3>
+        <ul>
+          <li>Password Policy و Account Lockout (در Default Domain Policy)</li>
+          <li>Map Network Drive</li>
+          <li>Restrict Control Panel / Run</li>
+          <li>Windows Update settings</li>
+          <li>Firewall rules از طریق GPO</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "GPO را می‌توان به کدام‌ها لینک کرد؟", options: ["فقط به کاربر", "Site، Domain و OU", "فقط به فایل", "فقط به پرینتر"], answer: 1, explain: "GPO به Site، Domain و Organizational Unit لینک می‌شود." },
+      { q: "دستور اعمال فوری Group Policy چیست؟", options: ["ipconfig /renew", "gpupdate /force", "netstat", "ping"], answer: 1, explain: "gpupdate /force سیاست‌ها را فوراً به‌روزرسانی می‌کند." },
+      { q: "کدام ابزار گزارش اعمال GPO روی یک کامپیوتر را نشان می‌دهد؟", options: ["ping", "gpresult", "hostname", "tracert"], answer: 1, explain: "gpresult یا Get-GPResultantSetOfPolicy نتیجه نهایی سیاست‌های اعمال‌شده را نشان می‌دهد." },
+      { q: "Password Policy دامنه معمولاً در کدام GPO تنظیم می‌شود؟", options: ["Default Domain Controllers Policy", "Default Domain Policy", "هر OU دلخواه", "Local Policy فقط"], answer: 1, explain: "سیاست‌های حساب دامنه (Password و Lockout) باید در Default Domain Policy تنظیم شوند." }
+    ]
+  },
+  {
+    id: "c07",
+    num: "07",
+    title: "File Server و Permission",
+    lead: "Share Permission، NTFS Permission، Inheritance و بهترین روش‌ها",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>اشتراک‌گذاری فایل یکی از رایج‌ترین نقش‌های Windows Server است. درک درست تفاوت Share Permission و NTFS Permission و نحوه ترکیب آن‌ها برای امنیت حیاتی است.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>Share Permission:</strong> فقط هنگام دسترسی از شبکه اعمال می‌شود. سطوح: Read، Change، Full Control.</li>
+          <li><strong>NTFS Permission:</strong> روی فایل‌سیستم اعمال می‌شود (محلی و شبکه). دقیق‌تر و غنی‌تر است.</li>
+          <li><strong>Effective Permission:</strong> محدودکننده‌ترین Permission بین Share و NTFS اعمال می‌شود (AND منطقی).</li>
+          <li><strong>Inheritance:</strong> به‌طور پیش‌فرض Permission از پوشه والد به ارث می‌رسد. می‌توان آن را Disable کرد.</li>
+          <li><strong>AGDLP:</strong> Account → Global Group → Domain Local Group → Permission. این مدل مدیریت را ساده و قابل نگهداری می‌کند.</li>
+          <li><strong>Access-Based Enumeration:</strong> کاربر فقط پوشه‌هایی را می‌بیند که به آن‌ها دسترسی دارد.</li>
+        </ul>
+        <div class="warning"><b>نکته امنیتی:</b> Share را معمولاً روی Full Control برای Authenticated Users یا گروه مناسب بگذارید و کنترل واقعی را با NTFS انجام دهید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">New-Item -Path "C:\\Shares\\Data" -ItemType Directory</div>
+        <div class="cmd">New-SmbShare -Name "Data" -Path "C:\\Shares\\Data" -FullAccess "Authenticated Users"</div>
+        <div class="cmd">Get-SmbShare</div>
+        <div class="cmd">Get-Acl C:\\Shares\\Data | Format-List</div>
+        <div class="cmd">icacls "C:\\Shares\\Data" /grant "LAB\\IT_Users:(OI)(CI)M"</div>
+        <div class="cmd">Get-SmbShareAccess -Name "Data"</div>
+      </div>
+      <div class="block">
+        <h3>بهترین روش‌ها</h3>
+        <ul>
+          <li>هرگز Permission را مستقیماً به کاربر ندهید؛ از گروه استفاده کنید.</li>
+          <li>از Full Control برای کاربران عادی خودداری کنید مگر ضرورت داشته باشد.</li>
+          <li>برای پوشه‌های حساس Auditing فعال کنید.</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "اگر Share روی Read و NTFS روی Modify باشد، Effective Permission از شبکه چیست؟", options: ["Modify", "Read", "Full Control", "هیچ دسترسی"], answer: 1, explain: "محدودکننده‌ترین Permission اعمال می‌شود؛ پس فقط Read." },
+      { q: "مدل توصیه‌شده برای دادن Permission چیست؟", options: ["مستقیم به کاربر", "AGDLP (گروه‌محور)", "همه Full Control", "فقط Share Permission"], answer: 1, explain: "AGDLP مدیریت را مقیاس‌پذیر و قابل نگهداری می‌کند." },
+      { q: "Share Permission فقط در چه شرایطی اعمال می‌شود؟", options: ["همیشه", "فقط هنگام دسترسی از شبکه", "فقط محلی", "فقط برای Administrator"], answer: 1, explain: "Share Permission فقط برای دسترسی‌های شبکه‌ای معنا دارد." },
+      { q: "کدام دستور Permission فعلی یک پوشه را نشان می‌دهد؟", options: ["Get-Acl", "Get-Service", "ping", "hostname"], answer: 0, explain: "Get-Acl یا icacls اطلاعات ACL را نمایش می‌دهند." }
+    ]
+  },
+  {
+    id: "c08",
+    num: "08",
+    title: "IIS و Web Server",
+    lead: "نصب IIS، Site، Application Pool، Binding و امنیت پایه",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>Internet Information Services (IIS) وب‌سرور بومی Windows است. برای میزبانی سایت‌های وب، API و برخی سرویس‌های داخلی استفاده می‌شود.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>Site:</strong> یک وب‌سایت با Binding مشخص (IP، Port، Host Header).</li>
+          <li><strong>Application Pool:</strong> فرآیند جداگانه‌ای که سایت در آن اجرا می‌شود. جداسازی Application Pool امنیت و پایداری را افزایش می‌دهد.</li>
+          <li><strong>Binding:</strong> ترکیبی از Protocol (http/https)، IP، Port و در صورت نیاز Host Name.</li>
+          <li><strong>Handler و Module:</strong> نحوه پردازش درخواست‌ها را مشخص می‌کنند.</li>
+          <li><strong>HTTPS:</strong> با Certificate فعال می‌شود. برای محیط داخلی می‌توان از AD CS یا Self-Signed استفاده کرد.</li>
+        </ul>
+        <div class="note"><b>هدف فصل:</b> بتوانید IIS را نصب کنید، یک Site بسازید و Binding تنظیم کنید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">Install-WindowsFeature Web-Server -IncludeManagementTools</div>
+        <div class="cmd">New-Website -Name "MySite" -Port 80 -PhysicalPath "C:\\inetpub\\mysite" -ApplicationPool "MySitePool"</div>
+        <div class="cmd">New-WebAppPool -Name "MySitePool"</div>
+        <div class="cmd">Get-Website</div>
+        <div class="cmd">Get-IISAppPool</div>
+        <div class="cmd">Start-Website -Name "MySite"</div>
+        <div class="cmd">New-WebBinding -Name "MySite" -Protocol https -Port 443</div>
+      </div>
+      <div class="block">
+        <h3>نکات امنیتی</h3>
+        <ul>
+          <li>Application Pool Identity را با حداقل دسترسی تنظیم کنید.</li>
+          <li>Directory Browsing را غیرفعال نگه دارید مگر نیاز باشد.</li>
+          <li>از HTTPS برای سایت‌های حساس استفاده کنید.</li>
+          <li>لاگ‌های IIS را به‌طور منظم بررسی کنید.</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "Application Pool چه نقشی دارد؟", options: ["فقط فایل ذخیره می‌کند", "فرآیند جداگانه برای اجرای سایت و جداسازی", "جایگزین DNS است", "فقط برای FTP است"], answer: 1, explain: "هر Application Pool یک Worker Process جدا دارد که پایداری و امنیت را بهبود می‌دهد." },
+      { q: "Binding در IIS شامل چه چیزهایی است؟", options: ["فقط نام فایل", "Protocol، IP، Port و Host Name", "فقط پسورد", "فقط CPU"], answer: 1, explain: "Binding مشخص می‌کند سایت روی چه آدرس و پورتی گوش می‌دهد." },
+      { q: "کدام دستور لیست سایت‌های IIS را نشان می‌دهد؟", options: ["Get-Service", "Get-Website", "ipconfig", "Get-ADUser"], answer: 1, explain: "Get-Website از ماژول WebAdministration استفاده می‌کند." },
+      { q: "برای امنیت بیشتر سایت، کدام مورد توصیه می‌شود؟", options: ["همه را Full Control بدهیم", "استفاده از HTTPS و حداقل دسترسی Application Pool", "Firewall را خاموش کنیم", "Anonymous را برای همه باز کنیم"], answer: 1, explain: "حداقل دسترسی و رمزنگاری ترافیک دو اصل مهم هستند." }
+    ]
+  },
+  {
+    id: "c09",
+    num: "09",
+    title: "Hyper-V و مجازی‌سازی",
+    lead: "ماشین مجازی، Virtual Switch، Checkpoint و مدیریت VM",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>Hyper-V هایپروایزر بومی مایکروسافت است که امکان اجرای چندین ماشین مجازی روی یک سخت‌افزار فیزیکی را فراهم می‌کند. برای Lab آموزشی و محیط‌های تولیدی کوچک تا متوسط بسیار مناسب است.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>VM (Virtual Machine):</strong> کامپیوتر مجازی با CPU، RAM، Disk و Network مجازی.</li>
+          <li><strong>Virtual Switch:</strong>
+            <ul>
+              <li><strong>External:</strong> اتصال VM به شبکه فیزیکی</li>
+              <li><strong>Internal:</strong> ارتباط بین VMها و Host</li>
+              <li><strong>Private:</strong> فقط بین VMها</li>
+            </ul>
+          </li>
+          <li><strong>Checkpoint (Snapshot):</strong> نقطه بازگشت سریع. جایگزین Backup نیست چون به دیسک اصلی وابسته است.</li>
+          <li><strong>Dynamic vs Fixed Disk:</strong> Dynamic فضا را به‌تدریج اشغال می‌کند؛ Fixed از ابتدا فضای کامل را رزرو می‌کند (عملکرد بهتر).</li>
+          <li><strong>Generation 1 vs 2:</strong> Gen2 از UEFI پشتیبانی می‌کند و مدرن‌تر است.</li>
+        </ul>
+        <div class="warning"><b>هشدار:</b> Checkpoint را برای مدت طولانی در محیط Production نگه ندارید و هرگز آن را جایگزین Backup نکنید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">Install-WindowsFeature Hyper-V -IncludeManagementTools -Restart</div>
+        <div class="cmd">New-VMSwitch -Name "ExternalSwitch" -NetAdapterName "Ethernet" -AllowManagementOS $true</div>
+        <div class="cmd">New-VM -Name "LAB-DC01" -MemoryStartupBytes 2GB -Generation 2 -NewVHDPath "D:\\VMs\\DC01.vhdx" -NewVHDSizeBytes 60GB</div>
+        <div class="cmd">Add-VMNetworkAdapter -VMName "LAB-DC01" -SwitchName "ExternalSwitch"</div>
+        <div class="cmd">Start-VM -Name "LAB-DC01"</div>
+        <div class="cmd">Checkpoint-VM -Name "LAB-DC01" -SnapshotName "Before-AD"</div>
+        <div class="cmd">Get-VM</div>
+      </div>
+    `,
+    questions: [
+      { q: "کدام نوع Virtual Switch VM را به شبکه فیزیکی وصل می‌کند؟", options: ["Private", "Internal", "External", "هیچکدام"], answer: 2, explain: "External Switch به یک آداپتور فیزیکی متصل می‌شود و VM را به شبکه واقعی می‌برد." },
+      { q: "Checkpoint جایگزین Backup است؟", options: ["بله کاملاً", "خیر؛ وابسته به دیسک اصلی است و برای بازگشت سریع است", "فقط برای لینوکس", "فقط برای کلاینت"], answer: 1, explain: "Checkpoint برای بازگشت سریع در Lab عالی است اما Backup واقعی نیست." },
+      { q: "Generation 2 از چه چیزی پشتیبانی می‌کند که Gen1 ندارد؟", options: ["فقط IDE", "UEFI و بوت امن‌تر", "فقط فلاپی", "فقط سریال"], answer: 1, explain: "Gen2 بر پایه UEFI است و امکانات مدرن‌تری دارد." },
+      { q: "کدام دستور لیست ماشین‌های مجازی را نشان می‌دهد؟", options: ["Get-Service", "Get-VM", "Get-ADUser", "ipconfig"], answer: 1, explain: "Get-VM وضعیت و لیست VMها را برمی‌گرداند." }
+    ]
+  },
+  {
+    id: "c10",
+    num: "10",
+    title: "PowerShell و Automation",
+    lead: "Cmdlet، Pipeline، Object، فیلتر، Export و اسکریپت‌نویسی پایه",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>PowerShell زبان و محیط مدیریتی مدرن مایکروسافت است که بر پایه Object کار می‌کند (نه فقط متن). تقریباً همه چیز در Windows Server را می‌توان با آن مدیریت کرد.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>Cmdlet:</strong> دستورات استاندارد به شکل Verb-Noun (مثل Get-Service، Set-Item).</li>
+          <li><strong>Pipeline (|):</strong> خروجی یک Cmdlet را به ورودی بعدی می‌دهد. چون Object است، خواص حفظ می‌شوند.</li>
+          <li><strong>Where-Object:</strong> فیلتر کردن. <strong>ForEach-Object:</strong> انجام عمل روی هر آیتم.</li>
+          <li><strong>Get-Help و Get-Command:</strong> بهترین دوستان شما برای کشف دستورات.</li>
+          <li><strong>Execution Policy:</strong> سطح اجازه اجرای اسکریپت (Restricted، RemoteSigned، Unrestricted و ...).</li>
+          <li><strong>Module:</strong> مجموعه‌ای از Cmdletها که برای نقش‌های خاص بارگذاری می‌شوند.</li>
+        </ul>
+        <div class="note"><b>هدف فصل:</b> بتوانید با Pipeline کار کنید، خروجی را فیلتر و Export کنید و اسکریپت ساده بنویسید.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">Get-Command *-Service</div>
+        <div class="cmd">Get-Help Get-Service -Examples</div>
+        <div class="cmd">Get-Service | Where-Object {$_.Status -eq 'Running'}</div>
+        <div class="cmd">Get-Process | Sort-Object CPU -Descending | Select-Object -First 10</div>
+        <div class="cmd">Get-Service | Export-Csv C:\\Temp\\services.csv -NoTypeInformation</div>
+        <div class="cmd">Get-ADUser -Filter * | Select Name, Enabled | Format-Table</div>
+        <div class="cmd">Get-ExecutionPolicy</div>
+        <div class="cmd">Set-ExecutionPolicy RemoteSigned -Scope CurrentUser</div>
+      </div>
+      <div class="block">
+        <h3>نکات خوب</h3>
+        <ul>
+          <li>همیشه با Get-Help شروع کنید.</li>
+          <li>اسکریپت‌ها را با حداقل دسترسی لازم اجرا کنید.</li>
+          <li>از WhatIf و Confirm برای دستورات مخرب استفاده کنید.</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "PowerShell با چه چیزی کار می‌کند؟", options: ["فقط متن خام", "Object", "فقط XML", "فقط JSON"], answer: 1, explain: "خروجی Cmdletها Object هستند و خواص آن‌ها در Pipeline حفظ می‌شود." },
+      { q: "کدام دستور برای فیلتر کردن استفاده می‌شود؟", options: ["Sort-Object", "Where-Object", "Format-Table", "Export-Csv"], answer: 1, explain: "Where-Object شرط فیلتر را اعمال می‌کند." },
+      { q: "شکل استاندارد نام Cmdlet چگونه است؟", options: ["noun-verb", "Verb-Noun", "فقط یک کلمه", "شماره"], answer: 1, explain: "قرارداد مایکروسافت Verb-Noun است مثل Get-Service." },
+      { q: "کدام دستور مثال‌های استفاده از یک Cmdlet را نشان می‌دهد؟", options: ["Get-Command", "Get-Help ... -Examples", "dir", "cls"], answer: 1, explain: "Get-Help با پارامتر -Examples نمونه‌های کاربردی را نمایش می‌دهد." }
+    ]
+  },
+  {
+    id: "c11",
+    num: "11",
+    title: "Security و Backup",
+    lead: "Least Privilege، Firewall، Update، Auditing، Backup و Hardening",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>امنیت یک محصول نیست؛ یک فرآیند است. در Windows Server باید از لایه‌های مختلف (هویت، شبکه، سیستم‌عامل، داده) محافظت کنید و برای بازیابی آماده باشید.</p>
+      </div>
+      <div class="block">
+        <h3>مفاهیم کلیدی</h3>
+        <ul>
+          <li><strong>Least Privilege:</strong> هر کاربر و سرویس فقط حداقل دسترسی لازم را داشته باشد.</li>
+          <li><strong>Windows Firewall:</strong> با Profileهای Domain، Private و Public. Ruleها را به‌جای خاموش کردن کلی تنظیم کنید.</li>
+          <li><strong>Windows Update:</strong> وصله‌های امنیتی را به‌موقع نصب کنید. در محیط Domain می‌توانید از WSUS یا GPO استفاده کنید.</li>
+          <li><strong>Auditing:</strong> ثبت رویدادهای مهم (ورود، تغییرات Policy، دسترسی به فایل‌های حساس).</li>
+          <li><strong>Backup:</strong> قانون ۳-۲-۱: حداقل ۳ کپی، روی ۲ رسانه مختلف، ۱ کپی خارج از سایت. Backup باید قابل بازیابی تست شده باشد.</li>
+          <li><strong>Windows Server Backup / wbadmin:</strong> ابزار بومی برای Backup.</li>
+        </ul>
+        <div class="warning"><b>اصل مهم:</b> Backupی که Restore آن تست نشده، Backup واقعی نیست.</div>
+      </div>
+      <div class="block">
+        <h3>دستورات مهم</h3>
+        <div class="cmd">Get-NetFirewallProfile</div>
+        <div class="cmd">Get-NetFirewallRule | Where-Object Enabled -eq 'True' | Select DisplayName, Direction, Action</div>
+        <div class="cmd">Get-MpComputerStatus</div>
+        <div class="cmd">Get-WinEvent -LogName Security -MaxEvents 30</div>
+        <div class="cmd">wbadmin get versions</div>
+        <div class="cmd">Get-WindowsUpdateLog</div>
+        <div class="cmd">Get-LocalUser | Select Name, Enabled, LastLogon</div>
+      </div>
+      <div class="block">
+        <h3>چک‌لیست Hardening پایه</h3>
+        <ul>
+          <li>حساب‌های استفاده‌نشده را Disable کنید.</li>
+          <li>RDP را محدود و در صورت امکان پشت VPN یا Just Enough Administration قرار دهید.</li>
+          <li>سرویس‌ها و Portهای غیرضروری را ببندید.</li>
+          <li>AppLocker یا WDAC را در محیط‌های حساس در نظر بگیرید.</li>
+          <li>قبل از تغییرات بزرگ، Backup و Rollback Plan داشته باشید.</li>
+        </ul>
+      </div>
+    `,
+    questions: [
+      { q: "اصل Least Privilege به چه معناست؟", options: ["همه Administrator باشند", "حداقل دسترسی لازم به هر کاربر/سرویس داده شود", "Firewall خاموش باشد", "Backup نگیریم"], answer: 1, explain: "کمینه‌سازی دسترسی سطح حمله را کاهش می‌دهد." },
+      { q: "قانون معروف Backup چیست؟", options: ["۱-۱-۱", "۳-۲-۱", "۵-۵-۵", "فقط یک کپی کافی است"], answer: 1, explain: "۳ کپی، ۲ رسانه مختلف، ۱ کپی خارج از محل." },
+      { q: "بهترین کار در مورد Windows Firewall چیست؟", options: ["همیشه خاموش کنیم", "خاموش نکنیم و Ruleهای لازم را اضافه کنیم", "فقط برای کلاینت مهم است", "جایگزین Antivirus است"], answer: 1, explain: "Firewall را باز نگه دارید و فقط پورت‌های مورد نیاز را باز کنید." },
+      { q: "کدام ابزار رویدادهای امنیتی را نشان می‌دهد؟", options: ["Get-WinEvent -LogName Security", "ping", "hostname", "ipconfig"], answer: 0, explain: "Security Log محل اصلی رویدادهای احراز هویت و تغییرات امنیتی است." }
+    ]
+  },
+  {
+    id: "c12",
+    num: "12",
+    title: "Troubleshooting و سناریوی نهایی",
+    lead: "روش عیب‌یابی مرحله‌ای، ابزارها و سناریوی Lab کامل",
+    content: `
+      <div class="block">
+        <h3>مقدمه</h3>
+        <p>عیب‌یابی مهارت است نه حفظ کردن. روش سیستماتیک باعث می‌شود سریع‌تر به ریشه مشکل برسید و تغییرات بی‌مورد انجام ندهید.</p>
+      </div>
+      <div class="block">
+        <h3>چارچوب عیب‌یابی</h3>
+        <ol>
+          <li><strong>مشکل را دقیق تعریف کنید:</strong> چه کسی؟ چه چیزی؟ از کی؟ چه تغییری اخیراً رخ داده؟</li>
+          <li><strong>لایه‌ها را از پایین بررسی کنید:</strong> Physical/Link → IP → Gateway → DNS → Authentication → Application</li>
+          <li><strong>برای مشکلات Domain:</strong> Connectivity → DNS → Time Sync → Kerberos/LDAP → GPO</li>
+          <li><strong>تغییرات را یکی‌یکی و قابل برگشت انجام دهید</strong> و نتیجه را ثبت کنید.</li>
+          <li><strong>از Event Viewer و PowerShell استفاده کنید.</strong></li>
+        </ol>
+      </div>
+      <div class="block">
+        <h3>ابزارها و دستورات کلیدی</h3>
+        <div class="cmd">Test-NetConnection dc01.lab.local -Port 53</div>
+        <div class="cmd">Test-NetConnection dc01.lab.local -Port 88</div>
+        <div class="cmd">Test-NetConnection dc01.lab.local -Port 389</div>
+        <div class="cmd">dcdiag /v</div>
+        <div class="cmd">repadmin /replsummary</div>
+        <div class="cmd">Get-WinEvent -LogName System -MaxEvents 50 | Where-Object LevelDisplayName -eq 'Error'</div>
+        <div class="cmd">nltest /dsgetdc:lab.local</div>
+        <div class="cmd">w32tm /query /status</div>
+      </div>
+      <div class="block">
+        <h3>سناریوی Lab نهایی پیشنهادی</h3>
+        <p>یک محیط کامل با این اجزا بسازید و همه سرویس‌ها را از صفر پیکربندی کنید:</p>
+        <ul>
+          <li>DC01: AD DS + DNS + DHCP</li>
+          <li>SRV01: File Server + IIS (Member Server)</li>
+          <li>PC01: Join به Domain، تست GPO، دسترسی به Share و سایت داخلی</li>
+          <li>یک GPO برای Map Drive و یک GPO امنیتی ساده</li>
+          <li>Backup از System State و یک پوشه مهم</li>
+          <li>عیب‌یابی عمدی: DNS را خراب کنید و مرحله‌به‌مرحله درست کنید</li>
+        </ul>
+        <div class="note"><b>هدف نهایی:</strong> بتوانید یک زیرساخت کوچک اما کامل را از صفر بسازید، مشکل ایجاد کنید و خودتان حل کنید.</div>
+      </div>
+    `,
+    questions: [
+      { q: "اولین قدم درست در عیب‌یابی چیست؟", options: ["فوراً سرور را ریستارت کنیم", "مشکل را دقیق تعریف و تغییرات اخیر را بررسی کنیم", "همه سرویس‌ها را متوقف کنیم", "Firewall را خاموش کنیم"], answer: 1, explain: "تعریف دقیق مشکل و دانستن تغییرات اخیر نیمی از راه حل است." },
+      { q: "برای مشکلات Domain ترتیب پیشنهادی بررسی چیست؟", options: ["Application اول", "Connectivity → DNS → Time → Authentication", "فقط Event Viewer", "فقط ریستارت DC"], answer: 1, explain: "لایه‌های پایین‌تر را اول مطمئن شوید سپس به Authentication برسید." },
+      { q: "کدام ابزار سلامت Domain Controller را بررسی می‌کند؟", options: ["ping فقط", "dcdiag", "notepad", "paint"], answer: 1, explain: "dcdiag مجموعه‌ای از تست‌های سلامت DC را اجرا می‌کند." },
+      { q: "هم‌زمانی زمان (Time Sync) چرا برای Domain مهم است؟", options: ["فقط برای زیبایی", "Kerberos به اختلاف زمان حساس است", "هیچ اهمیتی ندارد", "فقط برای کلاینت لینوکس"], answer: 1, explain: "Kerberos معمولاً بیش از ۵ دقیقه اختلاف زمان را نمی‌پذیرد." }
+    ]
+  }
+];
+
+// Final Exam Questions (mixed)
+const finalExamQuestions = [
+  { q: "Domain Controller چیست؟", options: ["یک کلاینت معمولی", "سروری که AD DS روی آن نصب است و احراز هویت انجام می‌دهد", "فقط فایل‌سرور", "روتر شبکه"], answer: 1 },
+  { q: "کدام Record در DNS نام را به IPv4 نگاشت می‌کند؟", options: ["PTR", "A", "MX", "CNAME"], answer: 1 },
+  { q: "Authorization در DHCP برای چیست؟", options: ["زیبایی رابط", "جلوگیری از DHCPهای غیرمجاز در Domain", "افزایش سرعت", "فقط IPv6"], answer: 1 },
+  { q: "Effective Permission بین Share و NTFS چگونه محاسبه می‌شود؟", options: ["مجموع آن‌ها", "محدودکننده‌ترین آن‌ها", "فقط NTFS", "فقط Share"], answer: 1 },
+  { q: "کدام نوع Virtual Switch به شبکه فیزیکی وصل می‌شود؟", options: ["Private", "Internal", "External", "Loopback"], answer: 2 },
+  { q: "دستور اعمال فوری Group Policy؟", options: ["gpresult", "gpupdate /force", "ipconfig /flushdns", "net stop"], answer: 1 },
+  { q: "PowerShell Pipeline چه چیزی را منتقل می‌کند؟", options: ["فقط متن", "Object", "فقط عدد", "فایل باینری"], answer: 1 },
+  { q: "قانون Backup ۳-۲-۱ یعنی چه؟", options: ["۳ کپی، ۲ رسانه، ۱ خارج از سایت", "۳ سرور، ۲ کلاینت، ۱ روتر", "فقط یک Backup کافی است", "۳ بار در روز"], answer: 0 },
+  { q: "در عیب‌یابی Domain اول چه چیزی را بررسی می‌کنید؟", options: ["نصب مجدد ویندوز", "Connectivity و DNS", "فقط Antivirus", "تغییر پسورد همه کاربران"], answer: 1 },
+  { q: "Server Core چه مزیتی دارد؟", options: ["رابط گرافیکی بیشتر", "سطح حمله کمتر و مصرف منابع کمتر", "فقط برای کلاینت", "DNS ندارد"], answer: 1 },
+  { q: "کدام دستور وضعیت سرویس‌های در حال اجرا را فیلتر می‌کند؟", options: ["Get-Service | Where-Object {$_.Status -eq 'Running'}", "ping", "hostname", "dir"], answer: 0 },
+  { q: "FSMO Roles مربوط به چیست؟", options: ["فقط پرینتر", "نقش‌های خاص Active Directory", "فقط Hyper-V", "فقط IIS"], answer: 1 },
+  { q: "Application Pool در IIS چه کمکی می‌کند؟", options: ["جداسازی و پایداری سایت‌ها", "جایگزین DNS", "فقط لاگ", "افزایش RAM فیزیکی"], answer: 0 },
+  { q: "Checkpoint در Hyper-V جایگزین Backup است؟", options: ["بله", "خیر", "فقط در Gen1", "فقط برای لینوکس"], answer: 1 },
+  { q: "کدام پورت پیش‌فرض برای DNS است؟", options: ["80", "443", "53", "3389"], answer: 2 }
+];
+
+// ===================== STATE =====================
+const STORAGE_KEY = "mcsa_cyber_danial_v2";
+let state = {
+  completed: {},      // chapterId -> true
+  scores: {},         // chapterId -> number
+  answers: {},        // chapterId -> [selected indexes]
+  finalScore: null,
+  finalAnswers: []
+};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state = { ...state, ...JSON.parse(raw) };
+  } catch (e) {}
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {}
+}
+
+function calcProgress() {
+  const done = Object.keys(state.completed).filter(k => state.completed[k]).length;
+  const pct = Math.round((done / chapters.length) * 100);
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressText").textContent = pct + "%";
+  document.getElementById("completedCount").textContent = done;
+  let total = 0;
+  Object.values(state.scores).forEach(s => total += s);
+  if (state.finalScore !== null) total += state.finalScore;
+  document.getElementById("totalScore").textContent = total;
+}
+
+// ===================== RENDER =====================
+function renderNav() {
+  const nav = document.getElementById("navList");
+  let html = `<div class="nav-item active" data-target="welcome"><span class="num">⌂</span> صفحه اصلی</div>`;
+  chapters.forEach(ch => {
+    const done = state.completed[ch.id] ? "completed" : "";
+    html += `<div class="nav-item ${done}" data-target="${ch.id}"><span class="num">${ch.num}</span> ${ch.title}</div>`;
+  });
+  html += `<div class="nav-item final" data-target="final"><span class="num">🏆</span> آزمون نهایی</div>`;
+  nav.innerHTML = html;
+
+  nav.querySelectorAll(".nav-item").forEach(el => {
+    el.addEventListener("click", () => {
+      showChapter(el.dataset.target);
+      closeSidebar();
+    });
+  });
+}
+
+function renderChapters() {
+  const container = document.getElementById("chaptersContainer");
+  let html = "";
+
+  chapters.forEach(ch => {
+    html += `<section class="chapter" id="${ch.id}">
+      <div class="chapter-header">
+        <div class="chapter-num">فصل ${ch.num}</div>
+        <h2>${ch.title}</h2>
+        <p class="lead">${ch.lead}</p>
+      </div>
+      ${ch.content}
+      <div class="quiz" id="quiz-${ch.id}">
+        <h3>📝 تمرین تعاملی فصل ${ch.num}</h3>
+        <div class="questions"></div>
+        <div class="quiz-actions">
+          <button class="btn btn-primary" onclick="checkQuiz('${ch.id}')">بررسی پاسخ‌ها</button>
+          <button class="btn" onclick="resetQuiz('${ch.id}')">پاک کردن پاسخ‌ها</button>
+        </div>
+        <div class="quiz-result" id="result-${ch.id}"></div>
+      </div>
+    </section>`;
+  });
+
+  // Final exam
+  html += `<section class="chapter" id="final">
+    <div class="chapter-header">
+      <div class="chapter-num">آزمون جامع</div>
+      <h2>🏆 آزمون نهایی MCSA Cyber</h2>
+      <p class="lead">۱۵ سؤال ترکیبی از همه فصل‌ها — پس از اتمام فصل‌ها شرکت کنید</p>
+    </div>
+    <div class="exam-intro block">
+      <p>این آزمون دانش کلی شما را می‌سنجد. هر سؤال ۱ امتیاز دارد. نتیجه ذخیره می‌شود.</p>
+    </div>
+    <div class="quiz" id="quiz-final">
+      <div class="questions"></div>
+      <div class="quiz-actions">
+        <button class="btn btn-primary" onclick="checkFinal()">ثبت و مشاهده نتیجه</button>
+        <button class="btn" onclick="resetFinal()">شروع دوباره</button>
+      </div>
+      <div class="quiz-result" id="result-final"></div>
+    </div>
+  </section>`;
+
+  container.innerHTML = html;
+
+  // Render questions
+  chapters.forEach(ch => {
+    const qBox = document.querySelector(`#quiz-${ch.id} .questions`);
+    qBox.innerHTML = ch.questions.map((qu, i) => renderQuestion(ch.id, i, qu)).join("");
+  });
+
+  const fBox = document.querySelector("#quiz-final .questions");
+  fBox.innerHTML = finalExamQuestions.map((qu, i) => renderQuestion("final", i, qu)).join("");
+}
+
+function renderQuestion(chId, idx, qu) {
+  const name = `${chId}_q${idx}`;
+  const saved = (chId === "final" ? state.finalAnswers[idx] : (state.answers[chId] || [])[idx]);
+  return `<div class="question" id="q-${chId}-${idx}">
+    <div class="q-text">${idx + 1}. ${qu.q}</div>
+    <div class="q-options">
+      ${qu.options.map((opt, oi) => `
+        <label class="q-opt ${saved === oi ? "selected" : ""}" data-ch="${chId}" data-q="${idx}" data-o="${oi}">
+          <input type="radio" name="${name}" value="${oi}" ${saved === oi ? "checked" : ""}>
+          <span class="radio"></span>
+          <span>${opt}</span>
+        </label>
+      `).join("")}
+    </div>
+    <div class="q-feedback" id="fb-${chId}-${idx}"></div>
+  </div>`;
+}
+
+// ===================== INTERACTION =====================
+function showChapter(id) {
+  document.querySelectorAll(".chapter").forEach(c => c.classList.remove("active"));
+  const el = document.getElementById(id);
+  if (el) el.classList.add("active");
+
+  document.querySelectorAll(".nav-item").forEach(n => {
+    n.classList.toggle("active", n.dataset.target === id);
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function bindOptionClicks() {
+  document.addEventListener("click", e => {
+    const opt = e.target.closest(".q-opt");
+    if (!opt || opt.classList.contains("disabled")) return;
+    const ch = opt.dataset.ch;
+    const q = +opt.dataset.q;
+    const o = +opt.dataset.o;
+
+    // deselect siblings
+    const parent = opt.closest(".q-options");
+    parent.querySelectorAll(".q-opt").forEach(x => x.classList.remove("selected"));
+    opt.classList.add("selected");
+    opt.querySelector("input").checked = true;
+
+    if (ch === "final") {
+      state.finalAnswers[q] = o;
+    } else {
+      if (!state.answers[ch]) state.answers[ch] = [];
+      state.answers[ch][q] = o;
+    }
+    saveState();
+  });
+}
+
+function checkQuiz(chId) {
+  const ch = chapters.find(c => c.id === chId);
+  if (!ch) return;
+  let correct = 0;
+  const answers = state.answers[chId] || [];
+
+  ch.questions.forEach((qu, i) => {
+    const qEl = document.getElementById(`q-${chId}-${i}`);
+    const fb = document.getElementById(`fb-${chId}-${i}`);
+    const selected = answers[i];
+    qEl.classList.remove("correct", "wrong");
+    qEl.querySelectorAll(".q-opt").forEach(o => {
+      o.classList.remove("correct-opt", "wrong-opt");
+      o.classList.add("disabled");
+    });
+
+    if (selected === undefined) {
+      fb.textContent = "پاسخی انتخاب نشده";
+      fb.className = "q-feedback show fail";
+      qEl.classList.add("wrong");
+      return;
+    }
+
+    const optEls = qEl.querySelectorAll(".q-opt");
+    if (selected === qu.answer) {
+      correct++;
+      qEl.classList.add("correct");
+      optEls[selected].classList.add("correct-opt");
+      fb.textContent = "✓ درست — " + (qu.explain || "");
+      fb.className = "q-feedback show ok";
+    } else {
+      qEl.classList.add("wrong");
+      optEls[selected].classList.add("wrong-opt");
+      optEls[qu.answer].classList.add("correct-opt");
+      fb.textContent = "✗ نادرست — " + (qu.explain || "");
+      fb.className = "q-feedback show fail";
+    }
+  });
+
+  const score = correct;
+  state.scores[chId] = score;
+  state.completed[chId] = true;
+  saveState();
+  calcProgress();
+  renderNav();
+  // re-highlight current
+  document.querySelector(`.nav-item[data-target="${chId}"]`)?.classList.add("active");
+
+  const res = document.getElementById(`result-${chId}`);
+  res.innerHTML = `<div class="big">${score} از ${ch.questions.length}</div>
+    <p>${score === ch.questions.length ? "عالی! همه پاسخ‌ها درست بود." : "می‌توانید دوباره تلاش کنید یا به فصل بعد بروید."}</p>`;
+  res.classList.add("show");
+}
+
+function resetQuiz(chId) {
+  delete state.answers[chId];
+  delete state.scores[chId];
+  delete state.completed[chId];
+  saveState();
+  calcProgress();
+  renderNav();
+  renderChapters();
+  bindOptionClicks();
+  showChapter(chId);
+}
+
+function checkFinal() {
+  let correct = 0;
+  finalExamQuestions.forEach((qu, i) => {
+    const qEl = document.getElementById(`q-final-${i}`);
+    const fb = document.getElementById(`fb-final-${i}`);
+    const selected = state.finalAnswers[i];
+    qEl.classList.remove("correct", "wrong");
+    qEl.querySelectorAll(".q-opt").forEach(o => {
+      o.classList.remove("correct-opt", "wrong-opt");
+      o.classList.add("disabled");
+    });
+
+    if (selected === undefined) {
+      fb.textContent = "بدون پاسخ";
+      fb.className = "q-feedback show fail";
+      qEl.classList.add("wrong");
+      return;
+    }
+    const optEls = qEl.querySelectorAll(".q-opt");
+    if (selected === qu.answer) {
+      correct++;
+      qEl.classList.add("correct");
+      optEls[selected].classList.add("correct-opt");
+      fb.textContent = "✓ درست";
+      fb.className = "q-feedback show ok";
+    } else {
+      qEl.classList.add("wrong");
+      optEls[selected].classList.add("wrong-opt");
+      optEls[qu.answer].classList.add("correct-opt");
+      fb.textContent = "✗ نادرست";
+      fb.className = "q-feedback show fail";
+    }
+  });
+
+  state.finalScore = correct;
+  saveState();
+  calcProgress();
+
+  const res = document.getElementById("result-final");
+  const pct = Math.round((correct / finalExamQuestions.length) * 100);
+  let msg = pct >= 80 ? "عالی! تسلط خوبی دارید." : pct >= 60 ? "خوب است؛ فصل‌های ضعیف را مرور کنید." : "پیشنهاد می‌شود فصل‌ها را دوباره مطالعه کنید.";
+  res.innerHTML = `<div class="big">${correct} از ${finalExamQuestions.length} (${pct}%)</div><p>${msg}</p>`;
+  res.classList.add("show");
+}
+
+function resetFinal() {
+  state.finalAnswers = [];
+  state.finalScore = null;
+  saveState();
+  calcProgress();
+  renderChapters();
+  bindOptionClicks();
+  showChapter("final");
+}
+
+// Sidebar mobile
+function openSidebar() {
+  document.getElementById("sidebar").classList.add("open");
+  document.getElementById("overlay").classList.add("show");
+}
+function closeSidebar() {
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+}
+
+// Search
+function setupSearch() {
+  const input = document.getElementById("searchInput");
+  input.addEventListener("input", () => {
+    const q = input.value.trim().toLowerCase();
+    if (!q) return;
+    // simple: find first chapter containing text
+    for (const ch of chapters) {
+      const text = (ch.title + " " + ch.lead + " " + ch.content).toLowerCase();
+      if (text.includes(q)) {
+        showChapter(ch.id);
+        break;
+      }
+    }
+  });
+}
+
+// Reset all
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (confirm("همه پیشرفت و امتیازها پاک شود؟")) {
+    state = { completed: {}, scores: {}, answers: {}, finalScore: null, finalAnswers: [] };
+    saveState();
+    calcProgress();
+    renderNav();
+    renderChapters();
+    bindOptionClicks();
+    showChapter("welcome");
+  }
+});
+
+// Init
+loadState();
+renderNav();
+renderChapters();
+bindOptionClicks();
+calcProgress();
+setupSearch();
+
+document.getElementById("menuBtn").addEventListener("click", openSidebar);
+document.getElementById("overlay").addEventListener("click", closeSidebar);
+
+// Keyboard escape
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeSidebar();
+});
 </script>
-</body></html>
+</body>
+</html>
